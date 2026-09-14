@@ -1,0 +1,23 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "imglab-engine"
+version = "0.1.0"
+description = "Image Processing Lab - from-scratch image processing engine (learning project)"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=1.26",
+    "scipy>=1.11",
+    "pillow>=10.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "opencv-python>=4.9",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/imglab_engine"]
