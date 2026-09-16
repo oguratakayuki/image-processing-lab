@@ -5,6 +5,7 @@ import {
   runBrightnessContrast,
   runGrayscale,
   runHistogram,
+  runThreshold,
   type HistogramResponse,
   type ImageStep,
   type ProcessImageResponse,
@@ -45,6 +46,7 @@ export default function ColorLabPage() {
   const [beta, setBeta] = useState(0);
   const [histogramResult, setHistogramResult] =
     useState<HistogramResponse | null>(null);
+  const [thresholdT, setThresholdT] = useState(128);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -146,6 +148,33 @@ export default function ColorLabPage() {
           className="w-fit rounded bg-foreground px-4 py-2 text-sm text-background disabled:opacity-40"
         >
           明るさ・コントラストを適用
+        </button>
+      </section>
+
+      <section className="flex flex-col gap-3 rounded-lg border border-zinc-200 p-4 dark:border-zinc-800">
+        <h2 className="font-medium">閾値処理 (Thresholding)</h2>
+        <p className="text-xs text-zinc-500">
+          Grayscale変換した上で、しきい値t以上を白(255)、未満を黒(0)にする。
+        </p>
+        <label className="flex flex-col gap-1 text-sm">
+          t (threshold): {thresholdT}
+          <input
+            type="range"
+            min={0}
+            max={255}
+            step={1}
+            value={thresholdT}
+            onChange={(e) => setThresholdT(Number(e.target.value))}
+          />
+        </label>
+        <button
+          onClick={() =>
+            runAndShow(() => runThreshold(file!, thresholdT))
+          }
+          disabled={!file || loading}
+          className="w-fit rounded bg-foreground px-4 py-2 text-sm text-background disabled:opacity-40"
+        >
+          閾値処理を適用
         </button>
       </section>
 

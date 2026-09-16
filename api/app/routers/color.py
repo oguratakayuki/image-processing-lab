@@ -8,6 +8,7 @@ imglab_engine側にある)。
 from fastapi import APIRouter, File, Form, UploadFile
 from imglab_engine.color.brightness_contrast import adjust_brightness_contrast
 from imglab_engine.color.grayscale import to_grayscale
+from imglab_engine.color.threshold import apply_threshold
 
 from ..schemas.image import ImageStep, ProcessImageResponse
 from ..services.image_io import decode_upload_to_array, encode_array_to_data_url
@@ -54,6 +55,35 @@ async def brightness_contrast(
                 name="result",
                 description=f"明るさ・コントラスト調整 (alpha={alpha}, beta={beta})",
                 image_base64=encode_array_to_data_url(result),
+            ),
+        ]
+    )
+
+
+@router.post("/threshold", response_model=ProcessImageResponse)
+async def threshold(
+    file: UploadFile = File(...),
+    t: int = Form(128),
+) -> ProcessImageResponse:
+    image = await decode_upload_to_array(file)
+    gray = to_grayscale(image)
+    binary = apply_threshold(gray, t=t)
+    return ProcessImageResponse(
+        steps=[
+            ImageStep(
+                name="original",
+                description="入力画像 (RGB)",
+                image_base64=encode_array_to_data_url(image),
+            ),
+            ImageStep(
+                name="grayscale",
+                description="Grayscale変換 (閾値処理の入力)",
+                image_base64=encode_array_to_data_url(gray),
+            ),
+            ImageStep(
+                name="threshold",
+                description=f"閾値処理 (t={t}): x>=t は255(白), x<t は0(黒)",
+                image_base64=encode_array_to_data_url(binary),
             ),
         ]
     )

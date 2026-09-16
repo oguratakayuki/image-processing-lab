@@ -61,3 +61,12 @@ export function runBrightnessContrast(
 export function runHistogram(file: File): Promise<HistogramResponse> {
   return postImage<HistogramResponse>("/histogram", file);
 }
+
+export function runThreshold(
+  file: File,
+  t: number
+): Promise<ProcessImageResponse> {
+  return postImage<ProcessImageResponse>("/color/threshold", file, {
+    t: String(t),
+  });
+}
