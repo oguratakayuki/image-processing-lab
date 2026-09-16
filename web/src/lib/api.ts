@@ -12,14 +12,19 @@ export interface ProcessImageResponse {
   steps: ImageStep[];
 }
 
+export interface HistogramResponse {
+  grayscale_image_base64: string;
+  histogram: number[];
+}
+
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
 
-async function postImage(
+async function postImage<T>(
   path: string,
   file: File,
   fields: Record<string, string> = {}
-): Promise<ProcessImageResponse> {
+): Promise<T> {
   const formData = new FormData();
   formData.append("file", file);
   for (const [key, value] of Object.entries(fields)) {
@@ -39,7 +44,7 @@ async function postImage(
 }
 
 export function runGrayscale(file: File): Promise<ProcessImageResponse> {
-  return postImage("/color/grayscale", file);
+  return postImage<ProcessImageResponse>("/color/grayscale", file);
 }
 
 export function runBrightnessContrast(
@@ -47,8 +52,12 @@ export function runBrightnessContrast(
   alpha: number,
   beta: number
 ): Promise<ProcessImageResponse> {
-  return postImage("/color/brightness-contrast", file, {
+  return postImage<ProcessImageResponse>("/color/brightness-contrast", file, {
     alpha: String(alpha),
     beta: String(beta),
   });
+}
+
+export function runHistogram(file: File): Promise<HistogramResponse> {
+  return postImage<HistogramResponse>("/histogram", file);
 }
