@@ -70,3 +70,12 @@ export function runThreshold(
     t: String(t),
   });
 }
+
+export function runConvolution(
+  file: File,
+  kernel: number[][]
+): Promise<ProcessImageResponse> {
+  return postImage<ProcessImageResponse>("/convolution/apply", file, {
+    kernel: JSON.stringify(kernel),
+  });
+}
