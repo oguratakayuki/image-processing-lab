@@ -1,7 +1,14 @@
 "use client";
 
-import { useState } from "react";
-import { runConvolution, type ImageStep } from "@/lib/api";
+import { useEffect, useState } from "react";
+import { fetchKernelPresets, runConvolution, type ImageStep } from "@/lib/api";
+
+const PRESET_LABELS: Record<string, string> = {
+  identity: "Identity",
+  mean_3x3: "Mean 3x3",
+  gaussian_3x3_sigma1: "Gaussian 3x3 (σ=1)",
+  sharpen: "Sharpen",
+};
 
 // 3x3の単純平均(box blur)カーネルを初期値にする。
 // 対称なカーネルなので、畳み込みの「反転」があってもなくても
@@ -20,8 +27,15 @@ export default function ConvolutionLabPage() {
   const [file, setFile] = useState<File | null>(null);
   const [kernelText, setKernelText] = useState(DEFAULT_KERNEL);
   const [steps, setSteps] = useState<ImageStep[]>([]);
+  const [presets, setPresets] = useState<Record<string, number[][]>>({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetchKernelPresets()
+      .then(setPresets)
+      .catch((e) => setError(e instanceof Error ? e.message : String(e)));
+  }, []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFile(e.target.files?.[0] ?? null);
@@ -67,6 +81,17 @@ export default function ConvolutionLabPage() {
 
       <section className="flex flex-col gap-3 rounded-lg border border-zinc-200 p-4 dark:border-zinc-800">
         <h2 className="font-medium">カーネル (kernel)</h2>
+        <div className="flex flex-wrap gap-2">
+          {Object.entries(presets).map(([name, matrix]) => (
+            <button
+              key={name}
+              onClick={() => setKernelText(JSON.stringify(matrix, null, 2))}
+              className="rounded border border-zinc-300 px-3 py-1 text-xs hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-800"
+            >
+              {PRESET_LABELS[name] ?? name}
+            </button>
+          ))}
+        </div>
         <textarea
           value={kernelText}
           onChange={(e) => setKernelText(e.target.value)}

@@ -79,3 +79,13 @@ export function runConvolution(
     kernel: JSON.stringify(kernel),
   });
 }
+
+export async function fetchKernelPresets(): Promise<
+  Record<string, number[][]>
+> {
+  const res = await fetch(`${API_BASE_URL}/convolution/kernels`);
+  if (!res.ok) {
+    throw new Error(`/convolution/kernels failed: ${res.status}`);
+  }
+  return res.json();
+}

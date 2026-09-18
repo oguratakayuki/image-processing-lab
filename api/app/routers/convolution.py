@@ -11,11 +11,34 @@ import numpy as np
 from fastapi import APIRouter, File, Form, HTTPException, UploadFile
 from imglab_engine.color.grayscale import to_grayscale
 from imglab_engine.convolution.convolution import convolve2d
+from imglab_engine.convolution.kernels import (
+    gaussian_kernel,
+    identity_kernel,
+    mean_kernel,
+    sharpen_kernel,
+)
 
 from ..schemas.image import ImageStep, ProcessImageResponse
 from ..services.image_io import decode_upload_to_array, encode_array_to_data_url
 
 router = APIRouter(prefix="/convolution", tags=["convolution"])
+
+
+@router.get("/kernels")
+async def list_kernel_presets() -> dict[str, list[list[float]]]:
+    """プリセットカーネルの一覧をJSONで返す。
+
+    実際の数値はengine側(kernels.py)で計算したものをそのまま返す。
+    フロントはこれをテキストエリアに流し込むだけで、ガウス関数の
+    計算式などをフロント側で再実装する必要がない(数式の実装は
+    engineに一元化する)。
+    """
+    return {
+        "identity": identity_kernel().tolist(),
+        "mean_3x3": mean_kernel(3).tolist(),
+        "gaussian_3x3_sigma1": gaussian_kernel(3, 1.0).tolist(),
+        "sharpen": sharpen_kernel().tolist(),
+    }
 
 
 @router.post("/apply", response_model=ProcessImageResponse)
