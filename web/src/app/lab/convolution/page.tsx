@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { fetchKernelPresets, runConvolution, type ImageStep } from "@/lib/api";
+import { KernelEditor } from "@/components/experiment/KernelEditor";
 
 const PRESET_LABELS: Record<string, string> = {
   identity: "Identity",
@@ -13,19 +14,15 @@ const PRESET_LABELS: Record<string, string> = {
 // 3x3の単純平均(box blur)カーネルを初期値にする。
 // 対称なカーネルなので、畳み込みの「反転」があってもなくても
 // 結果が同じになる、最も直感的に効果を確認しやすい例。
-const DEFAULT_KERNEL = JSON.stringify(
-  [
-    [1 / 9, 1 / 9, 1 / 9],
-    [1 / 9, 1 / 9, 1 / 9],
-    [1 / 9, 1 / 9, 1 / 9],
-  ],
-  null,
-  2
-);
+const DEFAULT_KERNEL: number[][] = [
+  [1 / 9, 1 / 9, 1 / 9],
+  [1 / 9, 1 / 9, 1 / 9],
+  [1 / 9, 1 / 9, 1 / 9],
+];
 
 export default function ConvolutionLabPage() {
   const [file, setFile] = useState<File | null>(null);
-  const [kernelText, setKernelText] = useState(DEFAULT_KERNEL);
+  const [kernel, setKernel] = useState<number[][]>(DEFAULT_KERNEL);
   const [steps, setSteps] = useState<ImageStep[]>([]);
   const [presets, setPresets] = useState<Record<string, number[][]>>({});
   const [loading, setLoading] = useState(false);
@@ -48,7 +45,6 @@ export default function ConvolutionLabPage() {
     setLoading(true);
     setError(null);
     try {
-      const kernel = JSON.parse(kernelText) as number[][];
       const response = await runConvolution(file, kernel);
       setSteps(response.steps);
     } catch (e) {
@@ -63,7 +59,7 @@ export default function ConvolutionLabPage() {
       <div>
         <h1 className="text-2xl font-semibold">Convolution Lab</h1>
         <p className="text-sm text-zinc-500">
-          カーネル(JSONの2次元配列)を編集して畳み込みを適用できます。
+          カーネル(重み行列)の値を直接編集して畳み込みを適用できます。
           畳み込みは「カーネルを180度回転してから、対応する位置の値を
           掛けて足し合わせる」演算です。対称なカーネル(平均・ガウシアン)
           では反転の有無は結果に影響しません。
@@ -85,19 +81,14 @@ export default function ConvolutionLabPage() {
           {Object.entries(presets).map(([name, matrix]) => (
             <button
               key={name}
-              onClick={() => setKernelText(JSON.stringify(matrix, null, 2))}
+              onClick={() => setKernel(matrix)}
               className="rounded border border-zinc-300 px-3 py-1 text-xs hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-800"
             >
               {PRESET_LABELS[name] ?? name}
             </button>
           ))}
         </div>
-        <textarea
-          value={kernelText}
-          onChange={(e) => setKernelText(e.target.value)}
-          rows={8}
-          className="w-full max-w-sm rounded border border-zinc-300 p-2 font-mono text-xs dark:border-zinc-700 dark:bg-zinc-900"
-        />
+        <KernelEditor kernel={kernel} onChange={setKernel} />
         <button
           onClick={handleApply}
           disabled={!file || loading}
