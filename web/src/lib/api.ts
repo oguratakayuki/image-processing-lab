@@ -91,3 +91,7 @@ export async function fetchKernelPresets(): Promise<
   }
   return res.json();
 }
+
+export function runSobel(file: File): Promise<ProcessImageResponse> {
+  return postImage<ProcessImageResponse>("/edge/sobel", file);
+}

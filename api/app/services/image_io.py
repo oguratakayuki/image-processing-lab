@@ -31,3 +31,21 @@ def encode_array_to_data_url(array: np.ndarray) -> str:
     image.save(buffer, format="PNG")
     encoded = base64.b64encode(buffer.getvalue()).decode("ascii")
     return f"data:image/png;base64,{encoded}"
+
+
+def encode_signed_array_to_data_url(array: np.ndarray) -> str:
+    """符号付きの実数配列(勾配など)を、0を灰色(128)とするGrayscale
+    画像に変換してdata URLにする。
+
+    Sobelの勾配 Gx, Gyのように「正負どちらの値も取り、0が特別な
+    意味(変化なし)を持つ」データを可視化するための関数。
+    最大絶対値で正規化して[-127, 127]の範囲に収め、128を足すことで
+    [1, 255]にシフトする(0 -> 128 = 灰色, 正 -> 明るい, 負 -> 暗い)。
+    """
+    max_abs = np.abs(array).max()
+    if max_abs == 0:
+        normalized = np.zeros_like(array)
+    else:
+        normalized = array / max_abs * 127
+    shifted = np.round(normalized + 128).astype(np.uint8)
+    return encode_array_to_data_url(shifted)

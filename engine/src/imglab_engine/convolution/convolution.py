@@ -45,12 +45,21 @@
 import numpy as np
 
 
-def convolve2d(channel: np.ndarray, kernel: np.ndarray) -> np.ndarray:
+def convolve2d(
+    channel: np.ndarray, kernel: np.ndarray, *, quantize: bool = True
+) -> np.ndarray:
     """Grayscale画像とカーネルの2次元畳み込みを計算する("same"サイズ出力)。
 
     channel: (H, W) の単一チャンネル画像 (uint8, 値域0-255)
     kernel:  (kh, kw) の畳み込みカーネル。kh, kw は奇数を想定
              (中心ピクセルが一意に定まるようにするため)。
+    quantize: Trueなら0-255にクリップして四捨五入しuint8で返す
+              (画像として保存・表示するための既定の挙動)。
+              Falseなら丸め・クリップをせずfloat64のまま返す。
+              エッジ検出のSobelフィルタのように、結果が負の値を
+              取りうる(輝度が減少する方向のエッジ)場合、uint8への
+              変換で符号の情報が失われてしまうため、その場合は
+              quantize=Falseで生の値を受け取る必要がある。
 
     境界処理: ゼロパディング(画像の外側は0とみなす)を採用する。
     これは最も単純な境界処理で、出力サイズを入力と同じ (H, W) に
@@ -87,6 +96,9 @@ def convolve2d(channel: np.ndarray, kernel: np.ndarray) -> np.ndarray:
             patch = padded[y : y + kernel_height, x : x + kernel_width]
             # Σ_{i,j} K_flip(i,j) * patch(i,j) を計算(畳み込みの定義式)。
             output[y, x] = np.sum(patch * flipped_kernel)
+
+    if not quantize:
+        return output  # 符号付き・範囲制限なしのfloat64をそのまま返す
 
     # Quantization: 四捨五入し、0-255の範囲に飽和させてuint8に戻す。
     # (平均フィルタのように総和が1のカーネルならクリップ不要だが、
