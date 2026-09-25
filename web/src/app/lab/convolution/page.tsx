@@ -25,6 +25,7 @@ export default function ConvolutionLabPage() {
   const [kernel, setKernel] = useState<number[][]>(DEFAULT_KERNEL);
   const [steps, setSteps] = useState<ImageStep[]>([]);
   const [presets, setPresets] = useState<Record<string, number[][]>>({});
+  const [compareOpencv, setCompareOpencv] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -45,7 +46,7 @@ export default function ConvolutionLabPage() {
     setLoading(true);
     setError(null);
     try {
-      const response = await runConvolution(file, kernel);
+      const response = await runConvolution(file, kernel, compareOpencv);
       setSteps(response.steps);
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
@@ -89,6 +90,14 @@ export default function ConvolutionLabPage() {
           ))}
         </div>
         <KernelEditor kernel={kernel} onChange={setKernel} />
+        <label className="flex items-center gap-2 text-sm">
+          <input
+            type="checkbox"
+            checked={compareOpencv}
+            onChange={(e) => setCompareOpencv(e.target.checked)}
+          />
+          OpenCV (cv2.filter2D) と比較する
+        </label>
         <button
           onClick={handleApply}
           disabled={!file || loading}

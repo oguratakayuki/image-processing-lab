@@ -73,10 +73,12 @@ export function runThreshold(
 
 export function runConvolution(
   file: File,
-  kernel: number[][]
+  kernel: number[][],
+  compareOpencv = false
 ): Promise<ProcessImageResponse> {
   return postImage<ProcessImageResponse>("/convolution/apply", file, {
     kernel: JSON.stringify(kernel),
+    compare_opencv: String(compareOpencv),
   });
 }
 
