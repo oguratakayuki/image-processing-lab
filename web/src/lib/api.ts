@@ -95,3 +95,11 @@ export async function fetchKernelPresets(): Promise<
 export function runSobel(file: File): Promise<ProcessImageResponse> {
   return postImage<ProcessImageResponse>("/edge/sobel", file);
 }
+
+export function runPrewitt(file: File): Promise<ProcessImageResponse> {
+  return postImage<ProcessImageResponse>("/edge/prewitt", file);
+}
+
+export function runLaplacian(file: File): Promise<ProcessImageResponse> {
+  return postImage<ProcessImageResponse>("/edge/laplacian", file);
+}
