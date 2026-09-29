@@ -103,3 +103,27 @@ export function runPrewitt(file: File): Promise<ProcessImageResponse> {
 export function runLaplacian(file: File): Promise<ProcessImageResponse> {
   return postImage<ProcessImageResponse>("/edge/laplacian", file);
 }
+
+function runMorphology(
+  path: string,
+  file: File,
+  t: number
+): Promise<ProcessImageResponse> {
+  return postImage<ProcessImageResponse>(path, file, { t: String(t) });
+}
+
+export function runErode(file: File, t: number): Promise<ProcessImageResponse> {
+  return runMorphology("/morphology/erode", file, t);
+}
+
+export function runDilate(file: File, t: number): Promise<ProcessImageResponse> {
+  return runMorphology("/morphology/dilate", file, t);
+}
+
+export function runOpening(file: File, t: number): Promise<ProcessImageResponse> {
+  return runMorphology("/morphology/opening", file, t);
+}
+
+export function runClosing(file: File, t: number): Promise<ProcessImageResponse> {
+  return runMorphology("/morphology/closing", file, t);
+}
