@@ -2,50 +2,50 @@
 
 Image Processing Labで実装済みの機能と、それぞれの学習テーマ・実装箇所の対応表。
 
+各項目には「大分類番号-項目番号」（例: `1-2`）を振ってあります。「1-2について解説して」のように番号で指定すれば、この表の該当項目を指すものとして扱います。
+
 ## ページ
 
-| ページ | URL (dev) | 内容 |
-|---|---|---|
-| Color Lab | `/lab/color` | Grayscale / 明るさ・コントラスト / ヒストグラム / 閾値処理 |
-| Convolution Lab | `/lab/convolution` | 畳み込み（カーネル編集・OpenCV比較） |
-| Edge Detection Lab | `/lab/edge` | Sobel / Prewitt / Laplacian |
-| Morphology Lab | `/lab/morphology` | Erosion / Dilation / Opening / Closing |
-
-## 機能一覧（学習テーマ・実装箇所）
-
-### `/lab/color`
-
-| # | 機能 | 学習テーマ | 実装ファイル / 関数 |
+| 番号 | タイトル | URL (dev) | 内容 |
 |---|---|---|---|
-| 1 | Grayscale変換 | 線形写像（内積） | `engine/src/imglab_engine/color/grayscale.py` — `to_grayscale()` |
-| 2 | 明るさ・コントラスト調整 | アフィン変換 | `engine/src/imglab_engine/color/brightness_contrast.py` — `adjust_brightness_contrast()` |
-| 3 | ヒストグラム計算・表示 | 度数分布・経験分布 | `engine/src/imglab_engine/histogram/histogram.py` — `compute_histogram()` |
-| 4 | 閾値処理 | ヘヴィサイド階段関数／集合の定義関数 | `engine/src/imglab_engine/color/threshold.py` — `apply_threshold()` |
+| 1 | 色調整 | `/lab/color` | Grayscale / 明るさ・コントラスト / ヒストグラム / 閾値処理 |
+| 2 | 畳み込み | `/lab/convolution` | 畳み込み（カーネル編集・OpenCV比較） |
+| 3 | エッジ検出 | `/lab/edge` | Sobel / Prewitt / Laplacian |
+| 4 | 二値画像処理 | `/lab/morphology` | Erosion / Dilation / Opening / Closing |
 
-### `/lab/convolution`
+## 1. 色調整（`/lab/color`）
 
-| # | 機能 | 学習テーマ | 実装ファイル / 関数 |
+| 番号 | 機能 | 学習テーマ | 実装ファイル / 関数 |
 |---|---|---|---|
-| 5 | 畳み込み | 離散畳み込み、カーネル反転、畳み込み定理 | `engine/src/imglab_engine/convolution/convolution.py` — `convolve2d()` |
-| ─ | カーネルプリセット（補助） | ガウス分布のサンプリング、カーネルの線形結合 | `engine/src/imglab_engine/convolution/kernels.py` — `identity_kernel()`, `mean_kernel()`, `gaussian_kernel()`, `laplacian_kernel()`, `sharpen_kernel()` |
-| ─ | OpenCV比較（補助） | 畳み込み(Convolution) vs 相関(Correlation) | `engine/src/imglab_engine/reference/convolution_reference.py` — `cv2_filter2d()` |
+| 1-1 | Grayscale変換 | 線形写像（内積） | `engine/src/imglab_engine/color/grayscale.py` — `to_grayscale()` |
+| 1-2 | 明るさ・コントラスト調整 | アフィン変換 | `engine/src/imglab_engine/color/brightness_contrast.py` — `adjust_brightness_contrast()` |
+| 1-3 | ヒストグラム計算・表示 | 度数分布・経験分布 | `engine/src/imglab_engine/histogram/histogram.py` — `compute_histogram()` |
+| 1-4 | 閾値処理 | ヘヴィサイド階段関数／集合の定義関数 | `engine/src/imglab_engine/color/threshold.py` — `apply_threshold()` |
 
-### `/lab/edge`
+## 2. 畳み込み（`/lab/convolution`）
 
-| # | 機能 | 学習テーマ | 実装ファイル / 関数 |
+| 番号 | 機能 | 学習テーマ | 実装ファイル / 関数 |
 |---|---|---|---|
-| 6 | Sobelエッジ検出 | 有限差分近似、勾配ベクトル、ユークリッドノルム | `engine/src/imglab_engine/edge/sobel.py` — `sobel_gradient()`<br>`engine/src/imglab_engine/edge/gradient.py` — `gradient_magnitude()` |
-| 7 | Prewittエッジ検出 | Sobelと同構造（平滑化重みの違い） | `engine/src/imglab_engine/edge/prewitt.py` — `prewitt_gradient()`（`gradient_magnitude()`を共用） |
-| 8 | Laplacianエッジ検出 | 2階微分、零交差 | `engine/src/imglab_engine/edge/laplacian.py` — `laplacian_edge_response()`（内部で`kernels.py`の`laplacian_kernel()`を再利用） |
+| 2-1 | 畳み込み | 離散畳み込み、カーネル反転、畳み込み定理 | `engine/src/imglab_engine/convolution/convolution.py` — `convolve2d()` |
+| 2-2 | カーネルプリセット（補助） | ガウス分布のサンプリング、カーネルの線形結合 | `engine/src/imglab_engine/convolution/kernels.py` — `identity_kernel()`, `mean_kernel()`, `gaussian_kernel()`, `laplacian_kernel()`, `sharpen_kernel()` |
+| 2-3 | OpenCV比較（補助） | 畳み込み(Convolution) vs 相関(Correlation) | `engine/src/imglab_engine/reference/convolution_reference.py` — `cv2_filter2d()` |
 
-### `/lab/morphology`
+## 3. エッジ検出（`/lab/edge`）
 
-| # | 機能 | 学習テーマ | 実装ファイル / 関数 |
+| 番号 | 機能 | 学習テーマ | 実装ファイル / 関数 |
 |---|---|---|---|
-| 9 | Erosion（収縮） | 集合演算（AND）、構造要素 | `engine/src/imglab_engine/morphology/morphology.py` — `erode()`（内部で`_local_reduce()`、構造要素は`square_structuring_element()`） |
-| 10 | Dilation（膨張） | 集合演算（OR）、構造要素 | 同ファイル — `dilate()` |
-| 11 | Opening（収縮→膨張） | Erosion/Dilationの合成 | 同ファイル — `opening()`（`erode()`→`dilate()`を呼ぶだけ） |
-| 12 | Closing（膨張→収縮） | Erosion/Dilationの合成、双対性 | 同ファイル — `closing()`（`dilate()`→`erode()`を呼ぶだけ） |
+| 3-1 | Sobelエッジ検出 | 有限差分近似、勾配ベクトル、ユークリッドノルム | `engine/src/imglab_engine/edge/sobel.py` — `sobel_gradient()`<br>`engine/src/imglab_engine/edge/gradient.py` — `gradient_magnitude()` |
+| 3-2 | Prewittエッジ検出 | Sobelと同構造（平滑化重みの違い） | `engine/src/imglab_engine/edge/prewitt.py` — `prewitt_gradient()`（`gradient_magnitude()`を共用） |
+| 3-3 | Laplacianエッジ検出 | 2階微分、零交差 | `engine/src/imglab_engine/edge/laplacian.py` — `laplacian_edge_response()`（内部で`kernels.py`の`laplacian_kernel()`を再利用） |
+
+## 4. 二値画像処理（`/lab/morphology`）
+
+| 番号 | 機能 | 学習テーマ | 実装ファイル / 関数 |
+|---|---|---|---|
+| 4-1 | Erosion（収縮） | 集合演算（AND）、構造要素 | `engine/src/imglab_engine/morphology/morphology.py` — `erode()`（内部で`_local_reduce()`、構造要素は`square_structuring_element()`） |
+| 4-2 | Dilation（膨張） | 集合演算（OR）、構造要素 | 同ファイル — `dilate()` |
+| 4-3 | Opening（収縮→膨張） | Erosion/Dilationの合成 | 同ファイル — `opening()`（`erode()`→`dilate()`を呼ぶだけ） |
+| 4-4 | Closing（膨張→収縮） | Erosion/Dilationの合成、双対性 | 同ファイル — `closing()`（`dilate()`→`erode()`を呼ぶだけ） |
 
 ## 補足
 
