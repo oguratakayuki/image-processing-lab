@@ -35,7 +35,7 @@ def compute_histogram(channel: np.ndarray) -> np.ndarray:
 
 ### 解説
 
-1. **`channel.ravel()`**：`(H, W)`の2次元配列を1次元配列に平坦化する。
+1. **`channel.ravel()`**：`(H, W)`の2次元配列を1次元配列に平坦化する。（[補足資料](1-3-histogram-ravel.md)）
 2. **`np.bincount(..., minlength=256)`**：非負整数配列の中で、各値が何回出現するかを数える関数。戻り値は長さ256（または最大値+1、`minlength`で下限を保証）のint64配列で、`result[v]`がピクセル値`v`の出現回数になる。
 3. **`[:256]`**：`minlength=256`だけでは理論上256を超える長さになる可能性がある境界ケースを防ぐため、明示的に256要素にスライスする。
 
