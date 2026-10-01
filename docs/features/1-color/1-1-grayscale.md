@@ -76,3 +76,18 @@ def to_grayscale(image: np.ndarray) -> np.ndarray:
 ---
 
 前へ: なし（最初の項目）　｜　次へ: [1-2. 明るさ・コントラスト調整 →](1-2-brightness-contrast.md)
+
+## DEBUG TEMP (検証用、後で削除)
+
+- Test1 plain: $x+y$ です
+- Test2 with bold same line: $x+y$ と**太字**
+- Test3 touching parens: ($x+y$)
+- Test4 own line:
+
+$x+y$
+
+- Test5 block own paragraph:
+
+$$
+x+y
+$$
