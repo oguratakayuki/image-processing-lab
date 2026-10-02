@@ -30,9 +30,9 @@ Image Processing Labで実装済みの機能と、それぞれの学習テーマ
 
 | 番号 | 機能 | 学習テーマ | 実装ファイル / 関数 |
 |---|---|---|---|
-| 2-1 | 畳み込み | 離散畳み込み、カーネル反転、畳み込み定理 | `engine/src/imglab_engine/convolution/convolution.py` — `convolve2d()` |
-| 2-2 | カーネルプリセット（補助） | ガウス分布のサンプリング、カーネルの線形結合 | `engine/src/imglab_engine/convolution/kernels.py` — `identity_kernel()`, `mean_kernel()`, `gaussian_kernel()`, `laplacian_kernel()`, `sharpen_kernel()` |
-| 2-3 | OpenCV比較（補助） | 畳み込み(Convolution) vs 相関(Correlation) | `engine/src/imglab_engine/reference/convolution_reference.py` — `cv2_filter2d()` |
+| [2-1](docs/features/2-convolution/2-1-convolution.md) | 畳み込み | 離散畳み込み、カーネル反転、畳み込み定理 | `engine/src/imglab_engine/convolution/convolution.py` — `convolve2d()` |
+| [2-2](docs/features/2-convolution/2-2-kernel-presets.md) | カーネルプリセット（補助） | ガウス分布のサンプリング、カーネルの線形結合 | `engine/src/imglab_engine/convolution/kernels.py` — `identity_kernel()`, `mean_kernel()`, `gaussian_kernel()`, `laplacian_kernel()`, `sharpen_kernel()` |
+| [2-3](docs/features/2-convolution/2-3-opencv-comparison.md) | OpenCV比較（補助） | 畳み込み(Convolution) vs 相関(Correlation) | `engine/src/imglab_engine/reference/convolution_reference.py` — `cv2_filter2d()` |
 
 ### 3. エッジ検出（[詳細](docs/features/3-edge/README.md)）
 
@@ -55,4 +55,4 @@ Image Processing Labで実装済みの機能と、それぞれの学習テーマ
 
 - 各機能をAPI経由で呼び出す配線は `api/app/routers/{color,histogram,convolution,edge,morphology}.py`、画面表示は `web/src/app/lab/{color,convolution,edge,morphology}/page.tsx` に対応している。学習テーマそのものの実装は全て `engine/` 側の関数にある。
 - engineテストは66件、全てパス（2026-10-01時点）。
-- 現時点で詳細ページ（概念・数式・コード解説）が整備済みなのは「1. 色調整」グループのみ。2〜4は早見表のみ。
+- 現時点で詳細ページ（概念・数式・コード解説）が整備済みなのは「1. 色調整」「2. 畳み込み」グループ。3〜4は早見表のみ。

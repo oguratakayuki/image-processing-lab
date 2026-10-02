@@ -61,4 +61,4 @@ Grayscale変換は色の情報（3次元→1次元）を失う点で不可逆だ
 
 ---
 
-前へ: [← 1-3. ヒストグラム計算・表示](1-3-histogram.md)　｜　次へ: [2. 畳み込み →](../2-convolution/README.md)（詳細ページは未整備）
+前へ: [← 1-3. ヒストグラム計算・表示](1-3-histogram.md)　｜　次へ: [2-1. 畳み込み →](../2-convolution/2-1-convolution.md)
