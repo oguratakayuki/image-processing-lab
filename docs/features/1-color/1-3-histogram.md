@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | 学習テーマ | 度数分布・経験分布（基礎統計学） |
-| 実装ファイル | `engine/src/imglab_engine/histogram/histogram.py` |
+| 実装ファイル | [`engine/src/imglab_engine/histogram/histogram.py`](https://github.com/oguratakayuki/image-processing-lab/blob/main/engine/src/imglab_engine/histogram/histogram.py) |
 | 関数 | `compute_histogram()` |
 | テスト | `engine/tests/histogram/test_histogram.py` |
 

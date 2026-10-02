@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | 学習テーマ | 線形写像（線形代数：内積） |
-| 実装ファイル | `engine/src/imglab_engine/color/grayscale.py` |
+| 実装ファイル | [`engine/src/imglab_engine/color/grayscale.py`](https://github.com/oguratakayuki/image-processing-lab/blob/main/engine/src/imglab_engine/color/grayscale.py) |
 | 関数 | `to_grayscale()` |
 | テスト | `engine/tests/color/test_grayscale.py` |
 

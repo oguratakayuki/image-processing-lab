@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | 学習テーマ | アフィン変換 |
-| 実装ファイル | `engine/src/imglab_engine/color/brightness_contrast.py` |
+| 実装ファイル | [`engine/src/imglab_engine/color/brightness_contrast.py`](https://github.com/oguratakayuki/image-processing-lab/blob/main/engine/src/imglab_engine/color/brightness_contrast.py) |
 | 関数 | `adjust_brightness_contrast()` |
 | テスト | `engine/tests/color/test_brightness_contrast.py` |
 

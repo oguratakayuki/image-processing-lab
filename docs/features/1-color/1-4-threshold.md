@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | 学習テーマ | ヘヴィサイド階段関数／集合の定義関数 |
-| 実装ファイル | `engine/src/imglab_engine/color/threshold.py` |
+| 実装ファイル | [`engine/src/imglab_engine/color/threshold.py`](https://github.com/oguratakayuki/image-processing-lab/blob/main/engine/src/imglab_engine/color/threshold.py) |
 | 関数 | `apply_threshold()` |
 | テスト | `engine/tests/color/test_threshold.py` |
 
