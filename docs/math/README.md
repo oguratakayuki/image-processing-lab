@@ -11,3 +11,4 @@
 | [mean-kernel.md](mean-kernel.md) | `mean_kernel()` | [2-2. カーネルプリセット](../features/2-convolution/2-2-kernel-presets.md) |
 | [gaussian-kernel.md](gaussian-kernel.md) | `gaussian_kernel()` | [2-2. カーネルプリセット](../features/2-convolution/2-2-kernel-presets.md) |
 | [gaussian-2d-function.md](gaussian-2d-function.md) | `exp(-(x²+y²)/(2σ²))`の項の詳細 | [gaussian-kernel.md](gaussian-kernel.md) |
+| [laplacian-kernel.md](laplacian-kernel.md) | `laplacian_kernel()` | [2-2. カーネルプリセット](../features/2-convolution/2-2-kernel-presets.md) |
