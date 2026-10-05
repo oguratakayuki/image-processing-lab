@@ -38,9 +38,9 @@ Image Processing Labで実装済みの機能と、それぞれの学習テーマ
 
 | 番号 | 機能 | 学習テーマ | 実装ファイル / 関数 |
 |---|---|---|---|
-| 3-1 | Sobelエッジ検出 | 有限差分近似、勾配ベクトル、ユークリッドノルム | `engine/src/imglab_engine/edge/sobel.py` — `sobel_gradient()`<br>`engine/src/imglab_engine/edge/gradient.py` — `gradient_magnitude()` |
-| 3-2 | Prewittエッジ検出 | Sobelと同構造（平滑化重みの違い） | `engine/src/imglab_engine/edge/prewitt.py` — `prewitt_gradient()`（`gradient_magnitude()`を共用） |
-| 3-3 | Laplacianエッジ検出 | 2階微分、零交差 | `engine/src/imglab_engine/edge/laplacian.py` — `laplacian_edge_response()`（内部で`kernels.py`の`laplacian_kernel()`を再利用） |
+| [3-1](docs/features/3-edge/3-1-sobel.md) | Sobelエッジ検出 | 有限差分近似、勾配ベクトル、ユークリッドノルム | `engine/src/imglab_engine/edge/sobel.py` — `sobel_gradient()`<br>`engine/src/imglab_engine/edge/gradient.py` — `gradient_magnitude()` |
+| [3-2](docs/features/3-edge/3-2-prewitt.md) | Prewittエッジ検出 | Sobelと同構造（平滑化重みの違い） | `engine/src/imglab_engine/edge/prewitt.py` — `prewitt_gradient()`（`gradient_magnitude()`を共用） |
+| [3-3](docs/features/3-edge/3-3-laplacian.md) | Laplacianエッジ検出 | 2階微分、零交差 | `engine/src/imglab_engine/edge/laplacian.py` — `laplacian_edge_response()`（内部で`kernels.py`の`laplacian_kernel()`を再利用） |
 
 ### 4. 二値画像処理（[詳細](docs/features/4-morphology/README.md)）
 
@@ -55,4 +55,4 @@ Image Processing Labで実装済みの機能と、それぞれの学習テーマ
 
 - 各機能をAPI経由で呼び出す配線は `api/app/routers/{color,histogram,convolution,edge,morphology}.py`、画面表示は `web/src/app/lab/{color,convolution,edge,morphology}/page.tsx` に対応している。学習テーマそのものの実装は全て `engine/` 側の関数にある。
 - engineテストは66件、全てパス（2026-10-01時点）。
-- 現時点で詳細ページ（概念・数式・コード解説）が整備済みなのは「1. 色調整」「2. 畳み込み」グループ。3〜4は早見表のみ。
+- 現時点で詳細ページ（概念・数式・コード解説）が整備済みなのは「1. 色調整」「2. 畳み込み」「3. エッジ検出」グループ。4は早見表のみ。

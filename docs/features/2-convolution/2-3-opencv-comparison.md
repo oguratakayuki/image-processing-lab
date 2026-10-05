@@ -67,4 +67,4 @@ def cv2_filter2d(channel: np.ndarray, kernel: np.ndarray) -> np.ndarray:
 
 ---
 
-前へ: [← 2-2. カーネルプリセット](2-2-kernel-presets.md)　｜　次へ: [3. エッジ検出 →](../3-edge/README.md)（詳細ページは未整備）
+前へ: [← 2-2. カーネルプリセット](2-2-kernel-presets.md)　｜　次へ: [3-1. Sobelエッジ検出 →](../3-edge/3-1-sobel.md)
