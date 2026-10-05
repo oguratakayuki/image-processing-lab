@@ -55,6 +55,7 @@ Laplacian応答:        0    0  100 -100    0
 - [2-2. カーネルプリセット](../2-convolution/2-2-kernel-presets.md) — `laplacian_kernel`の定義元。1階微分との比較もここにある
 - [3-1. Sobelエッジ検出](3-1-sobel.md) — 対比される1階微分アプローチ
 - [laplacian-kernel：コード⇔数式対応](../../math/laplacian-kernel.md) — カーネルの各マスの値の導出
+- [なぜ1階ではなく2階か](../2-convolution/2-2-kernel-presets.md#なぜ2階微分を使うのかゼロ交差によるエッジの検出) — 零交差によるエッジ位置の特定を実測値付きで比較
 
 ---
 
