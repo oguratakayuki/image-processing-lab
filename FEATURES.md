@@ -46,13 +46,13 @@ Image Processing Labで実装済みの機能と、それぞれの学習テーマ
 
 | 番号 | 機能 | 学習テーマ | 実装ファイル / 関数 |
 |---|---|---|---|
-| 4-1 | Erosion（収縮） | 集合演算（AND）、構造要素 | `engine/src/imglab_engine/morphology/morphology.py` — `erode()`（内部で`_local_reduce()`、構造要素は`square_structuring_element()`） |
-| 4-2 | Dilation（膨張） | 集合演算（OR）、構造要素 | 同ファイル — `dilate()` |
-| 4-3 | Opening（収縮→膨張） | Erosion/Dilationの合成 | 同ファイル — `opening()`（`erode()`→`dilate()`を呼ぶだけ） |
-| 4-4 | Closing（膨張→収縮） | Erosion/Dilationの合成、双対性 | 同ファイル — `closing()`（`dilate()`→`erode()`を呼ぶだけ） |
+| [4-1](docs/features/4-morphology/4-1-erosion.md) | Erosion（収縮） | 集合演算（AND）、構造要素 | `engine/src/imglab_engine/morphology/morphology.py` — `erode()`（内部で`_local_reduce()`、構造要素は`square_structuring_element()`） |
+| [4-2](docs/features/4-morphology/4-2-dilation.md) | Dilation（膨張） | 集合演算（OR）、構造要素 | 同ファイル — `dilate()` |
+| [4-3](docs/features/4-morphology/4-3-opening.md) | Opening（収縮→膨張） | Erosion/Dilationの合成 | 同ファイル — `opening()`（`erode()`→`dilate()`を呼ぶだけ） |
+| [4-4](docs/features/4-morphology/4-4-closing.md) | Closing（膨張→収縮） | Erosion/Dilationの合成、双対性 | 同ファイル — `closing()`（`dilate()`→`erode()`を呼ぶだけ） |
 
 ## 補足
 
 - 各機能をAPI経由で呼び出す配線は `api/app/routers/{color,histogram,convolution,edge,morphology}.py`、画面表示は `web/src/app/lab/{color,convolution,edge,morphology}/page.tsx` に対応している。学習テーマそのものの実装は全て `engine/` 側の関数にある。
 - engineテストは66件、全てパス（2026-10-01時点）。
-- 現時点で詳細ページ（概念・数式・コード解説）が整備済みなのは「1. 色調整」「2. 畳み込み」「3. エッジ検出」グループ。4は早見表のみ。
+- 詳細ページ（概念・数式・コード解説）は「1. 色調整」「2. 畳み込み」「3. エッジ検出」「4. 二値画像処理」の全グループで整備済み。

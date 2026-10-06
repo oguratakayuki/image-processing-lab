@@ -93,4 +93,4 @@ Laplacianは「エッジが無い場所でもノイズだけで誤って反応�
 
 ---
 
-前へ: [← 3-2. Prewittエッジ検出](3-2-prewitt.md)　｜　次へ: [4. 二値画像処理 →](../4-morphology/README.md)（詳細ページは未整備）
+前へ: [← 3-2. Prewittエッジ検出](3-2-prewitt.md)　｜　次へ: [4-1. Erosion（収縮） →](../4-morphology/4-1-erosion.md)
