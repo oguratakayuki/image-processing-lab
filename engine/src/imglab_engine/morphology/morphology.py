@@ -64,7 +64,16 @@ import numpy as np
 
 
 def square_structuring_element(size: int = 3) -> np.ndarray:
-    """size x size の正方形構造要素(全てTrue)を作る。"""
+    """size x size の正方形構造要素(全てTrue)を作る。
+
+    Args:
+        size: 構造要素の一辺の長さ。中心マスが一意に定まるように
+            奇数を想定している。
+
+    Returns:
+        形状 (size, size) の真偽値配列。全要素がTrue
+        (正方形なので、どの位置も構造要素に含まれる)。
+    """
     return np.ones((size, size), dtype=bool)
 
 
@@ -77,6 +86,24 @@ def _local_reduce(
     という型は共通だが、convolve2dは重み付き和(線形)、こちらは
     論理演算(非線形)という中身の違いがある。境界処理は畳み込みと
     同様にゼロパディング(=画像の外側は背景とみなす)を使う。
+
+    前提条件:
+        binaryは、Grayscale変換(to_grayscale)と閾値処理
+        (apply_threshold)をすでに経た、0(背景)か255(前景)の
+        2値だけを持つ画像であること。RGB画像やグレースケール画像を
+        そのまま渡してはいけない(色・中間値はこの関数では一切
+        考慮されない)。
+
+    Args:
+        binary: (H, W) の二値画像(uint8, 値は0か255のみ)。
+        structuring_element: (kh, kw) の真偽値配列(構造要素)。
+            kh, kwは奇数を想定(中心マスが一意に定まるようにするため)。
+        reduce_fn: 近傍の真偽値配列(1次元)を受け取り、1つの真偽値を
+            返す集約関数。np.all(AND。Erosion用、全て前景か判定)か
+            np.any(OR。Dilation用、1つでも前景か判定)を渡す。
+
+    Returns:
+        (H, W) の二値画像(uint8, 値は0か255のみ)。
     """
     kernel_height, kernel_width = structuring_element.shape
     pad_height, pad_width = kernel_height // 2, kernel_width // 2
@@ -121,20 +148,70 @@ def _local_reduce(
 
 
 def erode(binary: np.ndarray, structuring_element: np.ndarray) -> np.ndarray:
-    """Erosion(収縮): 構造要素が完全に前景に収まる点だけを残す(AND)。"""
+    """Erosion(収縮): 構造要素が完全に前景に収まる点だけを残す(AND)。
+
+    前提条件:
+        binaryは、Grayscale変換と閾値処理をすでに経た、0(背景)か
+        255(前景)の2値だけを持つ画像であること。
+
+    Args:
+        binary: (H, W) の二値画像(uint8, 値は0か255のみ)。
+        structuring_element: (kh, kw) の真偽値配列(構造要素)。
+
+    Returns:
+        収縮後の (H, W) 二値画像(uint8, 値は0か255のみ)。
+    """
     return _local_reduce(binary, structuring_element, np.all)
 
 
 def dilate(binary: np.ndarray, structuring_element: np.ndarray) -> np.ndarray:
-    """Dilation(膨張): 構造要素が前景と1点でも重なれば前景にする(OR)。"""
+    """Dilation(膨張): 構造要素が前景と1点でも重なれば前景にする(OR)。
+
+    前提条件:
+        binaryは、Grayscale変換と閾値処理をすでに経た、0(背景)か
+        255(前景)の2値だけを持つ画像であること。
+
+    Args:
+        binary: (H, W) の二値画像(uint8, 値は0か255のみ)。
+        structuring_element: (kh, kw) の真偽値配列(構造要素)。
+
+    Returns:
+        膨張後の (H, W) 二値画像(uint8, 値は0か255のみ)。
+    """
     return _local_reduce(binary, structuring_element, np.any)
 
 
 def opening(binary: np.ndarray, structuring_element: np.ndarray) -> np.ndarray:
-    """Opening: 収縮してから膨張する。小さな突起・孤立ノイズを除去する。"""
+    """Opening: 収縮してから膨張する。小さな突起・孤立ノイズを除去する。
+
+    前提条件:
+        binaryは、Grayscale変換と閾値処理をすでに経た、0(背景)か
+        255(前景)の2値だけを持つ画像であること。
+
+    Args:
+        binary: (H, W) の二値画像(uint8, 値は0か255のみ)。
+        structuring_element: (kh, kw) の真偽値配列(構造要素)。
+            erode・dilateの両方に同じものを使う。
+
+    Returns:
+        Opening適用後の (H, W) 二値画像(uint8, 値は0か255のみ)。
+    """
     return dilate(erode(binary, structuring_element), structuring_element)
 
 
 def closing(binary: np.ndarray, structuring_element: np.ndarray) -> np.ndarray:
-    """Closing: 膨張してから収縮する。小さな穴・くぼみを埋める。"""
+    """Closing: 膨張してから収縮する。小さな穴・くぼみを埋める。
+
+    前提条件:
+        binaryは、Grayscale変換と閾値処理をすでに経た、0(背景)か
+        255(前景)の2値だけを持つ画像であること。
+
+    Args:
+        binary: (H, W) の二値画像(uint8, 値は0か255のみ)。
+        structuring_element: (kh, kw) の真偽値配列(構造要素)。
+            dilate・erodeの両方に同じものを使う。
+
+    Returns:
+        Closing適用後の (H, W) 二値画像(uint8, 値は0か255のみ)。
+    """
     return erode(dilate(binary, structuring_element), structuring_element)

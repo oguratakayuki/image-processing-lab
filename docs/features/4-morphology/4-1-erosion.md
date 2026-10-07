@@ -113,15 +113,16 @@ def erode(binary: np.ndarray, structuring_element: np.ndarray) -> np.ndarray:
 
 ### 解説
 
-0. **前提**：`erode()`の引数`binary`は、[1-1のGrayscale変換](../1-color/1-1-grayscale.md)と[1-4の閾値処理](../1-color/1-4-threshold.md)を経て、すでに`0`（背景）か`255`（前景）の2値だけになった画像であることを前提にしている。この関数自体はRGBの色情報を一切受け取らず、見ることもない。
-1. **`square_structuring_element(size)`**：`size × size`の全てTrueな真偽値配列。`B`の最も単純な形（正方形）。
-2. **`for center_y in range(height): for center_x in range(width):`**：[4-2で見た数式](4-2-dilation.md)の`{z : 条件}`の「`z`を画像上の全ての点について動かす」を実行する二重ループ。`z = (center_y, center_x)`に対応する。
-3. **`patch_top = center_y`, `patch_left = center_x`**：構造要素を`z`に置いたときの近傍（`B_z`）を、`padded`配列のどこから切り出せばよいかを、先に変数として明示的に計算するステップ。元画像の座標は`padded`の中では`pad_height`・`pad_width`だけずれているが、「中心からの半径分だけ引く」ことと「ずれた分だけ足す」ことがちょうど打ち消し合い、結果として`padded`上の切り出し開始位置は元の座標`(center_y, center_x)`とそのまま一致する（コード内のコメント参照）。意図が伝わりにくいトリッキーな計算になりやすい箇所なので、結果を一旦変数に代入してから次のステップで使う、という2段階に分けている。
-4. **`patch = padded[patch_top : patch_top + kernel_height, patch_left : patch_left + kernel_width]`**：計算済みの開始位置を使って、構造要素と同じ大きさの近傍（`B_z`が指す範囲）を実際に切り出す。境界処理は畳み込みと同様にゼロパディング（＝画像の外側は背景とみなす）を使う。
-5. **`covered_values = patch[structuring_element]`**：[`convolve2d`](../2-convolution/2-1-convolution.md)と同じく「構造要素が指す近傍パッチを切り出し、1つの値に集約する」という共通の型を持つ処理。構造要素がTrueを指す位置の値だけを取り出すことで、正方形以外の形の構造要素にも対応できる汎用的な実装になっている。
-6. **`is_foreground = covered_values == 255`**：取り出した値を、前景(255)かどうかの真偽値配列に変換する。
-7. **`output[center_y, center_x] = 255 if reduce_fn(is_foreground) else 0`**：`reduce_fn`（`erode`なら`np.all`）の判定結果を、`z=(center_y, center_x)`の新しい画素値として書き込む。
-8. **`erode`**：`reduce_fn`に`np.all`（全て`True`か＝AND）を渡す。これが`B_z ⊆ A`という定義の実装そのもの——構造要素が指す近傍が1つでも背景を含めば、その点は収縮後に背景になる。
+0. **前提**：`_local_reduce()`・`erode()`の引数`binary`は、[1-1のGrayscale変換](../1-color/1-1-grayscale.md)と[1-4の閾値処理](../1-color/1-4-threshold.md)を経て、すでに`0`（背景）か`255`（前景）の2値だけになった画像であることを前提にしている。この関数自体はRGBの色情報を一切受け取らず、見ることもない。
+1. **引数・返却値**：`_local_reduce(binary, structuring_element, reduce_fn)`は3つの引数を取る——`binary`（二値画像）、`structuring_element`（構造要素、真偽値配列）、`reduce_fn`（近傍の真偽値配列を1つの真偽値に集約する関数。`erode`なら`np.all`、`dilate`なら`np.any`を渡す）。返却値は、同じ`(H, W)`の形をした二値画像（`erode`なら収縮後、`dilate`なら膨張後）。
+2. **`square_structuring_element(size)`**：`size × size`の全てTrueな真偽値配列。`B`の最も単純な形（正方形）。
+3. **`for center_y in range(height): for center_x in range(width):`**：[4-2で見た数式](4-2-dilation.md)の`{z : 条件}`の「`z`を画像上の全ての点について動かす」を実行する二重ループ。`z = (center_y, center_x)`に対応する。
+4. **`patch_top = center_y`, `patch_left = center_x`**：構造要素を`z`に置いたときの近傍（`B_z`）を、`padded`配列のどこから切り出せばよいかを、先に変数として明示的に計算するステップ。元画像の座標は`padded`の中では`pad_height`・`pad_width`だけずれているが、「中心からの半径分だけ引く」ことと「ずれた分だけ足す」ことがちょうど打ち消し合い、結果として`padded`上の切り出し開始位置は元の座標`(center_y, center_x)`とそのまま一致する（コード内のコメント参照）。意図が伝わりにくいトリッキーな計算になりやすい箇所なので、結果を一旦変数に代入してから次のステップで使う、という2段階に分けている。
+5. **`patch = padded[patch_top : patch_top + kernel_height, patch_left : patch_left + kernel_width]`**：計算済みの開始位置を使って、構造要素と同じ大きさの近傍（`B_z`が指す範囲）を実際に切り出す。行方向に「`patch_top`行目から`patch_top + kernel_height`行目の手前まで」、列方向に「`patch_left`列目から`patch_left + kernel_width`列目の手前まで」を抜き出している。境界処理は畳み込みと同様にゼロパディング（＝画像の外側は背景とみなす）を使う。
+6. **`covered_values = patch[structuring_element]`**：[`convolve2d`](../2-convolution/2-1-convolution.md)と同じく「構造要素が指す近傍パッチを切り出し、1つの値に集約する」という共通の型を持つ処理。構造要素がTrueを指す位置の値だけを取り出すことで、正方形以外の形の構造要素にも対応できる汎用的な実装になっている。
+7. **`is_foreground = covered_values == 255`**：取り出した値を、前景(255)かどうかの真偽値配列に変換する。
+8. **`output[center_y, center_x] = 255 if reduce_fn(is_foreground) else 0`**：`reduce_fn`（`erode`なら`np.all`）の判定結果を、`z=(center_y, center_x)`の新しい画素値として書き込む。
+9. **`erode(binary, structuring_element)`**：引数は`_local_reduce`と同じく`binary`（二値画像）・`structuring_element`（構造要素）。`reduce_fn`に`np.all`（全て`True`か＝AND）を固定で渡し、収縮後の`(H, W)`二値画像を返す。これが`B_z ⊆ A`という定義の実装そのもの——構造要素が指す近傍が1つでも背景を含めば、その点は収縮後に背景になる。
 
 ## 具体的な計算例
 
