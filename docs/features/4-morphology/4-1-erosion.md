@@ -65,20 +65,41 @@ def square_structuring_element(size: int = 3) -> np.ndarray:
 def _local_reduce(
     binary: np.ndarray, structuring_element: np.ndarray, reduce_fn
 ) -> np.ndarray:
-    kh, kw = structuring_element.shape
-    pad_h, pad_w = kh // 2, kw // 2
+    kernel_height, kernel_width = structuring_element.shape
+    pad_height, pad_width = kernel_height // 2, kernel_width // 2
     padded = np.pad(
-        binary, ((pad_h, pad_h), (pad_w, pad_w)), mode="constant", constant_values=0
+        binary,
+        ((pad_height, pad_height), (pad_width, pad_width)),
+        mode="constant",
+        constant_values=0,
     )
 
     height, width = binary.shape
     output = np.zeros((height, width), dtype=np.uint8)
 
-    for y in range(height):
-        for x in range(width):
-            patch = padded[y : y + kh, x : x + kw]
-            covered = patch[structuring_element]
-            output[y, x] = 255 if reduce_fn(covered == 255) else 0
+    for center_y in range(height):
+        for center_x in range(width):
+            # 元画像の座標(center_y, center_x)は、パディングによって
+            # paddedの中では(center_y + pad_height, center_x + pad_width)の
+            # 位置にずれている。そこを中心とするkernel_height x kernel_width
+            # の近傍の左上は、(center_y + pad_height - pad_height,
+            # center_x + pad_width - pad_width) = (center_y, center_x)と、
+            # パディング分がちょうど打ち消し合って元の座標と一致する。
+            patch_top = center_y
+            patch_left = center_x
+
+            # 計算済みの左上座標から、構造要素と同じ大きさの近傍を切り出す。
+            patch = padded[
+                patch_top : patch_top + kernel_height,
+                patch_left : patch_left + kernel_width,
+            ]
+
+            # 構造要素がTrueを指す位置の値だけを取り出す
+            # (構造要素が正方形以外の形でも対応できるようにするため)。
+            covered_values = patch[structuring_element]
+            is_foreground = covered_values == 255
+
+            output[center_y, center_x] = 255 if reduce_fn(is_foreground) else 0
 
     return output
 
@@ -91,9 +112,13 @@ def erode(binary: np.ndarray, structuring_element: np.ndarray) -> np.ndarray:
 
 0. **前提**：`erode()`の引数`binary`は、[1-1のGrayscale変換](../1-color/1-1-grayscale.md)と[1-4の閾値処理](../1-color/1-4-threshold.md)を経て、すでに`0`（背景）か`255`（前景）の2値だけになった画像であることを前提にしている。この関数自体はRGBの色情報を一切受け取らず、見ることもない。
 1. **`square_structuring_element(size)`**：`size × size`の全てTrueな真偽値配列。`B`の最も単純な形（正方形）。
-2. **`_local_reduce`**：[`convolve2d`](../2-convolution/2-1-convolution.md)と同じく「構造要素が指す近傍パッチを切り出し、1つの値に集約する」という共通の型を持つヘルパー。境界処理も畳み込みと同様にゼロパディング（＝画像の外側は背景とみなす）を使う。`covered = patch[structuring_element]`で構造要素がTrueを指す位置の値だけを取り出すことで、正方形以外の形の構造要素にも対応できる汎用的な実装になっている。
-3. **`reduce_fn(covered == 255)`**：`covered`の各要素が前景(255)かどうかの真偽値配列に変換してから`reduce_fn`に渡す。
-4. **`erode`**：`reduce_fn`に`np.all`（全て`True`か＝AND）を渡す。これが`B_z ⊆ A`という定義の実装そのもの——構造要素が指す近傍が1つでも背景を含めば、その点は収縮後に背景になる。
+2. **`for center_y in range(height): for center_x in range(width):`**：[4-2で見た数式](4-2-dilation.md)の`{z : 条件}`の「`z`を画像上の全ての点について動かす」を実行する二重ループ。`z = (center_y, center_x)`に対応する。
+3. **`patch_top = center_y`, `patch_left = center_x`**：構造要素を`z`に置いたときの近傍（`B_z`）を、`padded`配列のどこから切り出せばよいかを、先に変数として明示的に計算するステップ。元画像の座標は`padded`の中では`pad_height`・`pad_width`だけずれているが、「中心からの半径分だけ引く」ことと「ずれた分だけ足す」ことがちょうど打ち消し合い、結果として`padded`上の切り出し開始位置は元の座標`(center_y, center_x)`とそのまま一致する（コード内のコメント参照）。意図が伝わりにくいトリッキーな計算になりやすい箇所なので、結果を一旦変数に代入してから次のステップで使う、という2段階に分けている。
+4. **`patch = padded[patch_top : patch_top + kernel_height, patch_left : patch_left + kernel_width]`**：計算済みの開始位置を使って、構造要素と同じ大きさの近傍（`B_z`が指す範囲）を実際に切り出す。境界処理は畳み込みと同様にゼロパディング（＝画像の外側は背景とみなす）を使う。
+5. **`covered_values = patch[structuring_element]`**：[`convolve2d`](../2-convolution/2-1-convolution.md)と同じく「構造要素が指す近傍パッチを切り出し、1つの値に集約する」という共通の型を持つ処理。構造要素がTrueを指す位置の値だけを取り出すことで、正方形以外の形の構造要素にも対応できる汎用的な実装になっている。
+6. **`is_foreground = covered_values == 255`**：取り出した値を、前景(255)かどうかの真偽値配列に変換する。
+7. **`output[center_y, center_x] = 255 if reduce_fn(is_foreground) else 0`**：`reduce_fn`（`erode`なら`np.all`）の判定結果を、`z=(center_y, center_x)`の新しい画素値として書き込む。
+8. **`erode`**：`reduce_fn`に`np.all`（全て`True`か＝AND）を渡す。これが`B_z ⊆ A`という定義の実装そのもの——構造要素が指す近傍が1つでも背景を含めば、その点は収縮後に背景になる。
 
 ## 具体的な計算例
 

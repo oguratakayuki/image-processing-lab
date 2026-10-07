@@ -78,22 +78,41 @@ def _local_reduce(
     論理演算(非線形)という中身の違いがある。境界処理は畳み込みと
     同様にゼロパディング(=画像の外側は背景とみなす)を使う。
     """
-    kh, kw = structuring_element.shape
-    pad_h, pad_w = kh // 2, kw // 2
+    kernel_height, kernel_width = structuring_element.shape
+    pad_height, pad_width = kernel_height // 2, kernel_width // 2
     padded = np.pad(
-        binary, ((pad_h, pad_h), (pad_w, pad_w)), mode="constant", constant_values=0
+        binary,
+        ((pad_height, pad_height), (pad_width, pad_width)),
+        mode="constant",
+        constant_values=0,
     )
 
     height, width = binary.shape
     output = np.zeros((height, width), dtype=np.uint8)
 
-    for y in range(height):
-        for x in range(width):
-            patch = padded[y : y + kh, x : x + kw]
+    for center_y in range(height):
+        for center_x in range(width):
+            # 元画像の座標(center_y, center_x)は、パディングによって
+            # paddedの中では(center_y + pad_height, center_x + pad_width)の
+            # 位置にずれている。そこを中心とするkernel_height x kernel_width
+            # の近傍の左上は、(center_y + pad_height - pad_height,
+            # center_x + pad_width - pad_width) = (center_y, center_x)と、
+            # パディング分がちょうど打ち消し合って元の座標と一致する。
+            patch_top = center_y
+            patch_left = center_x
+
+            # 計算済みの左上座標から、構造要素と同じ大きさの近傍を切り出す。
+            patch = padded[
+                patch_top : patch_top + kernel_height,
+                patch_left : patch_left + kernel_width,
+            ]
+
             # 構造要素がTrueを指す位置の値だけを取り出す
             # (構造要素が正方形以外の形でも対応できるようにするため)。
-            covered = patch[structuring_element]
-            output[y, x] = 255 if reduce_fn(covered == 255) else 0
+            covered_values = patch[structuring_element]
+            is_foreground = covered_values == 255
+
+            output[center_y, center_x] = 255 if reduce_fn(is_foreground) else 0
 
     return output
 
