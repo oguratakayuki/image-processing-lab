@@ -102,6 +102,9 @@ def _local_reduce(
             patch_left = center_x
 
             # 計算済みの左上座標から、構造要素と同じ大きさの近傍を切り出す。
+            # 行方向に「patch_top行目から、patch_top + kernel_height行目の
+            # 手前まで」、列方向に「patch_left列目から、
+            # patch_left + kernel_width列目の手前まで」抜き出す。
             patch = padded[
                 patch_top : patch_top + kernel_height,
                 patch_left : patch_left + kernel_width,
