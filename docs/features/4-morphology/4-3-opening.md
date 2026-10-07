@@ -9,9 +9,21 @@
 | 関数 | `opening()` |
 | テスト | [`engine/tests/morphology/test_morphology.py`](https://github.com/oguratakayuki/image-processing-lab/blob/main/engine/tests/morphology/test_morphology.py) |
 
+## 超ざっくり言うと
+
+収縮してから膨張することで、小さな突起や孤立したノイズを消しつつ、全体の形はほぼそのまま保つ操作。
+
 ## 概念
 
 [4-1のErosion](4-1-erosion.md)と[4-2のDilation](4-2-dilation.md)を「収縮してから膨張」の順に組み合わせた操作。構造要素より小さい突起や孤立したノイズを消しつつ、全体の輪郭はほぼ保ったまま復元する。
+
+## 主な用途
+
+- **小さなノイズ・孤立点の除去**：[4-1のErosion単体](4-1-erosion.md)と違い、膨張で復元するため、ノイズを消しつつ残したい物体の大きさはほぼ保てる
+- **細い突起・ひげ状のノイズの除去**：物体の輪郭からはみ出た細いひげ状の部分だけを削り取る
+- **分離した物体の形を保ったままのクリーンアップ**：くっついていた物体を[4-1のErosionで分離](4-1-erosion.md)した後、形をなるべく元に近く保ちたい場合の仕上げ
+
+これも前段の[Grayscale変換・閾値処理](4-1-erosion.md)で前景/背景が正しく分離できていることが前提（色そのものは一切見ていない）。
 
 ## 数学的背景
 
