@@ -102,6 +102,9 @@ def _local_reduce(
             covered_values = patch[structuring_element]
             is_foreground = covered_values == 255
 
+            # (center_y, center_x)を収縮・膨張させるためのメインの判定処理。
+            # 膨張(dilate)は構造要素のいずれかが前景なら前景になり、
+            # 収縮(erode)は構造要素の全てが前景でないと前景にならない。
             output[center_y, center_x] = 255 if reduce_fn(is_foreground) else 0
 
     return output
