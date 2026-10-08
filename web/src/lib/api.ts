@@ -127,3 +127,14 @@ export function runOpening(file: File, t: number): Promise<ProcessImageResponse>
 export function runClosing(file: File, t: number): Promise<ProcessImageResponse> {
   return runMorphology("/morphology/closing", file, t);
 }
+
+export function runTranslate(
+  file: File,
+  tx: number,
+  ty: number
+): Promise<ProcessImageResponse> {
+  return postImage<ProcessImageResponse>("/geometry/translate", file, {
+    tx: String(tx),
+    ty: String(ty),
+  });
+}

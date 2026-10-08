@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .routers import color, convolution, edge, histogram, morphology
+from .routers import color, convolution, edge, geometry, histogram, morphology
 
 app = FastAPI(title="Image Processing Lab API")
 
@@ -17,6 +17,7 @@ app.include_router(histogram.router)
 app.include_router(convolution.router)
 app.include_router(edge.router)
 app.include_router(morphology.router)
+app.include_router(geometry.router)
 
 
 @app.get("/health")

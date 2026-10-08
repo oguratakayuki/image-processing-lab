@@ -14,6 +14,7 @@ Image Processing Labで実装済みの機能と、それぞれの学習テーマ
 | 2 | 畳み込み | `/lab/convolution` | 畳み込み（カーネル編集・OpenCV比較） | [詳細](docs/features/2-convolution/README.md) |
 | 3 | エッジ検出 | `/lab/edge` | Sobel / Prewitt / Laplacian | [詳細](docs/features/3-edge/README.md) |
 | 4 | 二値画像処理 | `/lab/morphology` | Erosion / Dilation / Opening / Closing | [詳細](docs/features/4-morphology/README.md) |
+| 5 | 幾何学的変換 | `/lab/geometry` | 平行移動 | [詳細](docs/features/5-geometry/README.md) |
 
 ## 機能一覧（学習テーマ・実装箇所の早見表）
 
@@ -51,8 +52,14 @@ Image Processing Labで実装済みの機能と、それぞれの学習テーマ
 | [4-3](docs/features/4-morphology/4-3-opening.md) | Opening（収縮→膨張） | Erosion/Dilationの合成 | 同ファイル — `opening()`（`erode()`→`dilate()`を呼ぶだけ） |
 | [4-4](docs/features/4-morphology/4-4-closing.md) | Closing（膨張→収縮） | Erosion/Dilationの合成、双対性 | 同ファイル — `closing()`（`dilate()`→`erode()`を呼ぶだけ） |
 
+### 5. 幾何学的変換（[詳細](docs/features/5-geometry/README.md)）
+
+| 番号 | 機能 | 学習テーマ | 実装ファイル / 関数 |
+|---|---|---|---|
+| [5-1](docs/features/5-geometry/5-1-translation.md) | 平行移動（Translation） | 座標変換、逆方向マッピング（inverse mapping） | `engine/src/imglab_engine/geometry/translation.py` — `translate()` |
+
 ## 補足
 
-- 各機能をAPI経由で呼び出す配線は `api/app/routers/{color,histogram,convolution,edge,morphology}.py`、画面表示は `web/src/app/lab/{color,convolution,edge,morphology}/page.tsx` に対応している。学習テーマそのものの実装は全て `engine/` 側の関数にある。
-- engineテストは66件、全てパス（2026-10-01時点）。
-- 詳細ページ（概念・数式・コード解説）は「1. 色調整」「2. 畳み込み」「3. エッジ検出」「4. 二値画像処理」の全グループで整備済み。
+- 各機能をAPI経由で呼び出す配線は `api/app/routers/{color,histogram,convolution,edge,morphology,geometry}.py`、画面表示は `web/src/app/lab/{color,convolution,edge,morphology,geometry}/page.tsx` に対応している。学習テーマそのものの実装は全て `engine/` 側の関数にある。
+- engineテストは72件、全てパス（2026-10-08時点）。
+- 詳細ページ（概念・数式・コード解説）は「1. 色調整」「2. 畳み込み」「3. エッジ検出」「4. 二値画像処理」「5. 幾何学的変換」の全グループで整備済み。

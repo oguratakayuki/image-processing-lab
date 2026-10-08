@@ -91,4 +91,4 @@ closing結果:
 
 ---
 
-前へ: [← 4-3. Opening（オープニング）](4-3-opening.md)　｜　次へ: なし（現時点で最後の実装済みグループ）
+前へ: [← 4-3. Opening（オープニング）](4-3-opening.md)　｜　次へ: [5-1. 平行移動（Translation） →](../5-geometry/5-1-translation.md)
