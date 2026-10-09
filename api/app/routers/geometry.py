@@ -6,6 +6,7 @@ imglab_engine側にある)。
 """
 
 from fastapi import APIRouter, File, Form, UploadFile
+from imglab_engine.geometry.rotation import rotate
 from imglab_engine.geometry.scaling import scale
 from imglab_engine.geometry.translation import translate
 
@@ -57,6 +58,29 @@ async def scale_endpoint(
             ImageStep(
                 name="scaled",
                 description=f"拡大縮小 (sx={sx}, sy={sy}): 最近傍補間で算出",
+                image_base64=encode_array_to_data_url(result),
+            ),
+        ]
+    )
+
+
+@router.post("/rotate", response_model=ProcessImageResponse)
+async def rotate_endpoint(
+    file: UploadFile = File(...),
+    degrees: float = Form(0.0),
+) -> ProcessImageResponse:
+    image = await decode_upload_to_array(file)
+    result = rotate(image, degrees=degrees)
+    return ProcessImageResponse(
+        steps=[
+            ImageStep(
+                name="original",
+                description="入力画像 (RGB)",
+                image_base64=encode_array_to_data_url(image),
+            ),
+            ImageStep(
+                name="rotated",
+                description=f"回転 (degrees={degrees}): 画像の中心を軸に時計回り",
                 image_base64=encode_array_to_data_url(result),
             ),
         ]

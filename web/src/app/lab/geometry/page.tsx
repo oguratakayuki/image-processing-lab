@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import {
+  runRotate,
   runScale,
   runTranslate,
   type ImageStep,
@@ -14,6 +15,7 @@ export default function GeometryLabPage() {
   const [ty, setTy] = useState(10);
   const [sx, setSx] = useState(2);
   const [sy, setSy] = useState(2);
+  const [degrees, setDegrees] = useState(45);
   const [steps, setSteps] = useState<ImageStep[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -123,6 +125,33 @@ export default function GeometryLabPage() {
           className="w-fit rounded bg-foreground px-4 py-2 text-sm text-background disabled:opacity-40"
         >
           拡大縮小を適用
+        </button>
+      </section>
+
+      <section className="flex flex-col gap-3 border-t border-zinc-200 pt-6 dark:border-zinc-800">
+        <p className="text-sm text-zinc-500">
+          回転(Rotation)です。画像の中心を軸に回転させます。正の値で
+          時計回りに回転し、枠からはみ出た部分は切り捨てられ、
+          新しく現れた部分は黒で埋められます（拡大縮小のクランプとは
+          異なり、回転では本当に対応する入力画素が無いため）。
+        </p>
+        <label className="flex flex-col gap-1 text-sm">
+          degrees (回転角度): {degrees}
+          <input
+            type="range"
+            min={-180}
+            max={180}
+            step={1}
+            value={degrees}
+            onChange={(e) => setDegrees(Number(e.target.value))}
+          />
+        </label>
+        <button
+          onClick={() => runAndShow(() => runRotate(file!, degrees))}
+          disabled={!file || loading}
+          className="w-fit rounded bg-foreground px-4 py-2 text-sm text-background disabled:opacity-40"
+        >
+          回転を適用
         </button>
       </section>
 

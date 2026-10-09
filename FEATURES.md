@@ -58,9 +58,10 @@ Image Processing Labで実装済みの機能と、それぞれの学習テーマ
 |---|---|---|---|
 | [5-1](docs/features/5-geometry/5-1-translation.md) | 平行移動（Translation） | 座標変換、逆方向マッピング（inverse mapping） | `engine/src/imglab_engine/geometry/translation.py` — `translate()` |
 | [5-2](docs/features/5-geometry/5-2-scaling.md) | 拡大縮小（Scaling） | 線形変換行列（対角行列）、逆行列、最近傍補間 | `engine/src/imglab_engine/geometry/scaling.py` — `scale()` |
+| [5-3](docs/features/5-geometry/5-3-rotation.md) | 回転（Rotation） | 回転行列、直交行列の逆行列、回転中心 | `engine/src/imglab_engine/geometry/rotation.py` — `rotate()` |
 
 ## 補足
 
 - 各機能をAPI経由で呼び出す配線は `api/app/routers/{color,histogram,convolution,edge,morphology,geometry}.py`、画面表示は `web/src/app/lab/{color,convolution,edge,morphology,geometry}/page.tsx` に対応している。学習テーマそのものの実装は全て `engine/` 側の関数にある。
-- engineテストは77件、全てパス（2026-10-09時点）。
+- engineテストは84件、全てパス（2026-10-09時点）。
 - 詳細ページ（概念・数式・コード解説）は「1. 色調整」「2. 畳み込み」「3. エッジ検出」「4. 二値画像処理」「5. 幾何学的変換」の全グループで整備済み。

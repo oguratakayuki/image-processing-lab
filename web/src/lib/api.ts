@@ -149,3 +149,12 @@ export function runScale(
     sy: String(sy),
   });
 }
+
+export function runRotate(
+  file: File,
+  degrees: number
+): Promise<ProcessImageResponse> {
+  return postImage<ProcessImageResponse>("/geometry/rotate", file, {
+    degrees: String(degrees),
+  });
+}

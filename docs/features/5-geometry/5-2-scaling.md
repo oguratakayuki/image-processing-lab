@@ -1,6 +1,6 @@
 # 5-2. 拡大縮小（Scaling）
 
-[← 5. 幾何学的変換へ戻る](README.md)　｜　[5-1](5-1-translation.md) · **5-2**
+[← 5. 幾何学的変換へ戻る](README.md)　｜　[5-1](5-1-translation.md) · **5-2** · [5-3](5-3-rotation.md)
 
 | | |
 |---|---|
@@ -147,4 +147,4 @@ def scale(image: np.ndarray, sx: float, sy: float) -> np.ndarray:
 
 ---
 
-前へ: [← 5-1. 平行移動](5-1-translation.md)　｜　次へ: なし（現時点で最後の実装済み項目）
+前へ: [← 5-1. 平行移動](5-1-translation.md)　｜　次へ: [5-3. 回転 →](5-3-rotation.md)
