@@ -1,6 +1,6 @@
 # 5-3. 回転（Rotation）
 
-[← 5. 幾何学的変換へ戻る](README.md)　｜　[5-1](5-1-translation.md) · [5-2](5-2-scaling.md) · **5-3**
+[← 5. 幾何学的変換へ戻る](README.md)　｜　[5-1](5-1-translation.md) · [5-2](5-2-scaling.md) · **5-3** · [5-4](5-4-shear.md)
 
 | | |
 |---|---|
@@ -169,4 +169,4 @@ def rotate(image: np.ndarray, degrees: float) -> np.ndarray:
 
 ---
 
-前へ: [← 5-2. 拡大縮小](5-2-scaling.md)　｜　次へ: なし（現時点で最後の実装済み項目）
+前へ: [← 5-2. 拡大縮小](5-2-scaling.md)　｜　次へ: [5-4. せん断 →](5-4-shear.md)

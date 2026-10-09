@@ -4,6 +4,7 @@ import { useState } from "react";
 import {
   runRotate,
   runScale,
+  runShear,
   runTranslate,
   type ImageStep,
   type ProcessImageResponse,
@@ -16,6 +17,8 @@ export default function GeometryLabPage() {
   const [sx, setSx] = useState(2);
   const [sy, setSy] = useState(2);
   const [degrees, setDegrees] = useState(45);
+  const [shx, setShx] = useState(0.5);
+  const [shy, setShy] = useState(0);
   const [steps, setSteps] = useState<ImageStep[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -152,6 +155,44 @@ export default function GeometryLabPage() {
           className="w-fit rounded bg-foreground px-4 py-2 text-sm text-background disabled:opacity-40"
         >
           回転を適用
+        </button>
+      </section>
+
+      <section className="flex flex-col gap-3 border-t border-zinc-200 pt-6 dark:border-zinc-800">
+        <p className="text-sm text-zinc-500">
+          せん断(Shear)です。長方形を平行四辺形に歪ませます。原点
+          (左上角)を基準にするため、回転と違って中心合わせは不要です。
+          shxは行の位置に応じて横にずらし、shyは列の位置に応じて
+          縦にずらします。
+        </p>
+        <label className="flex flex-col gap-1 text-sm">
+          shx (横方向のせん断係数): {shx.toFixed(2)}
+          <input
+            type="range"
+            min={-1}
+            max={1}
+            step={0.05}
+            value={shx}
+            onChange={(e) => setShx(Number(e.target.value))}
+          />
+        </label>
+        <label className="flex flex-col gap-1 text-sm">
+          shy (縦方向のせん断係数): {shy.toFixed(2)}
+          <input
+            type="range"
+            min={-1}
+            max={1}
+            step={0.05}
+            value={shy}
+            onChange={(e) => setShy(Number(e.target.value))}
+          />
+        </label>
+        <button
+          onClick={() => runAndShow(() => runShear(file!, shx, shy))}
+          disabled={!file || loading}
+          className="w-fit rounded bg-foreground px-4 py-2 text-sm text-background disabled:opacity-40"
+        >
+          せん断を適用
         </button>
       </section>
 

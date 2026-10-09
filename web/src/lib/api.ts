@@ -158,3 +158,14 @@ export function runRotate(
     degrees: String(degrees),
   });
 }
+
+export function runShear(
+  file: File,
+  shx: number,
+  shy: number
+): Promise<ProcessImageResponse> {
+  return postImage<ProcessImageResponse>("/geometry/shear", file, {
+    shx: String(shx),
+    shy: String(shy),
+  });
+}

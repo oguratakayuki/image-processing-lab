@@ -8,6 +8,7 @@ imglab_engine側にある)。
 from fastapi import APIRouter, File, Form, UploadFile
 from imglab_engine.geometry.rotation import rotate
 from imglab_engine.geometry.scaling import scale
+from imglab_engine.geometry.shear import shear
 from imglab_engine.geometry.translation import translate
 
 from ..schemas.image import ImageStep, ProcessImageResponse
@@ -81,6 +82,30 @@ async def rotate_endpoint(
             ImageStep(
                 name="rotated",
                 description=f"回転 (degrees={degrees}): 画像の中心を軸に時計回り",
+                image_base64=encode_array_to_data_url(result),
+            ),
+        ]
+    )
+
+
+@router.post("/shear", response_model=ProcessImageResponse)
+async def shear_endpoint(
+    file: UploadFile = File(...),
+    shx: float = Form(0.0),
+    shy: float = Form(0.0),
+) -> ProcessImageResponse:
+    image = await decode_upload_to_array(file)
+    result = shear(image, shx=shx, shy=shy)
+    return ProcessImageResponse(
+        steps=[
+            ImageStep(
+                name="original",
+                description="入力画像 (RGB)",
+                image_base64=encode_array_to_data_url(image),
+            ),
+            ImageStep(
+                name="sheared",
+                description=f"せん断 (shx={shx}, shy={shy}): 原点(左上)を基準に歪ませる",
                 image_base64=encode_array_to_data_url(result),
             ),
         ]
