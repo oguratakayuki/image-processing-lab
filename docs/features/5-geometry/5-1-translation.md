@@ -75,6 +75,7 @@ def translate(image: np.ndarray, tx: int, ty: int) -> np.ndarray:
             src_y = out_y - ty
             src_x = out_x - tx
 
+            # 入力座標は実際に画像の中に存在するかどうか。
             if 0 <= src_y < height and 0 <= src_x < width:
                 output[out_y, out_x] = image[src_y, src_x]
 

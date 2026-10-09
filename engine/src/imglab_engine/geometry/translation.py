@@ -84,8 +84,7 @@ def translate(image: np.ndarray, tx: int, ty: int) -> np.ndarray:
             src_y = out_y - ty
             src_x = out_x - tx
 
-            # 逆算した入力側の座標(src_y, src_x)が、実際に画像の
-            # 範囲内(0以上、高さ/幅未満)にあるかどうかを確認する。
+            # 入力座標は実際に画像の中に存在するかどうか。
             # Pythonの比較演算子は 0 <= src_y < height のように
             # 連続して書くと「0 <= src_y かつ src_y < height」という
             # 意味になる(Ruby/PHPにはない書き方)。
