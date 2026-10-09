@@ -32,6 +32,8 @@ from imglab_engine.convolution.kernels import laplacian_kernel
 
 
 def laplacian_edge_response(channel: np.ndarray) -> np.ndarray:
+    # channel: (H, W)のGrayscale画像(uint8, 値域0-255)。
+    # 返却値: ラプラシアン応答。(H, W)の符号付きfloat64配列。
     return convolve2d(channel, laplacian_kernel(), quantize=False)
 ```
 

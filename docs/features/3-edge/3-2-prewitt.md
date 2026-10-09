@@ -49,6 +49,8 @@ PREWITT_Y = np.array(
 
 
 def prewitt_gradient(channel: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    # channel: (H, W)のGrayscale画像(uint8, 値域0-255)。
+    # 返却値: (Gx, Gy)のタプル。どちらも(H, W)の符号付きfloat64配列。
     gx = convolve2d(channel, PREWITT_X, quantize=False)
     gy = convolve2d(channel, PREWITT_Y, quantize=False)
     return gx, gy

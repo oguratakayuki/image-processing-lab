@@ -30,6 +30,8 @@ import numpy as np
 
 
 def compute_histogram(channel: np.ndarray) -> np.ndarray:
+    # channel: Grayscale画像。(H, W)のuint8配列(値域0-255)。
+    # 返却値: 長さ256のint64配列。result[v]はピクセル値vの出現回数。
     return np.bincount(channel.ravel(), minlength=256)[:256]
 ```
 

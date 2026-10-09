@@ -37,6 +37,9 @@ A ∘ B = (A ⊖ B) ⊕ B
 
 ```python
 def opening(binary: np.ndarray, structuring_element: np.ndarray) -> np.ndarray:
+    # binary: (H, W)の二値画像(uint8, 値は0か255のみ)。
+    # structuring_element: (kh, kw)の真偽値配列(構造要素)。erode・dilate両方に同じものを使う。
+    # 返却値: Opening適用後の(H, W)二値画像(uint8, 値は0か255のみ)。
     return dilate(erode(binary, structuring_element), structuring_element)
 ```
 

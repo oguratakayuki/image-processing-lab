@@ -34,6 +34,9 @@ import numpy as np
 
 
 def cv2_filter2d(channel: np.ndarray, kernel: np.ndarray) -> np.ndarray:
+    # channel: (H, W)の単一チャンネル画像(uint8, 値域0-255)。
+    # kernel: (kh, kw)の畳み込み(相関)カーネル。
+    # 返却値: cv2.filter2Dによる処理結果。(H, W)のuint8配列。
     result = cv2.filter2D(
         channel.astype(np.float64),
         ddepth=-1,

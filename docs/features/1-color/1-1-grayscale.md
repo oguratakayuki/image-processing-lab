@@ -32,6 +32,8 @@ _BT601_WEIGHTS = np.array([0.299, 0.587, 0.114], dtype=np.float64)
 
 
 def to_grayscale(image: np.ndarray) -> np.ndarray:
+    # image: RGB画像。(H, W, 3)のuint8配列。
+    # 返却値: Grayscale画像。(H, W)のuint8配列。
     image_float = image.astype(np.float64)
     gray_float = image_float @ _BT601_WEIGHTS
     return np.round(gray_float).astype(np.uint8)

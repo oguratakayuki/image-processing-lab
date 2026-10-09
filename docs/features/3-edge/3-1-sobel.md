@@ -88,6 +88,8 @@ SOBEL_Y = np.array(
 
 
 def sobel_gradient(channel: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    # channel: (H, W)のGrayscale画像(uint8, 値域0-255)。
+    # 返却値: (Gx, Gy)のタプル。どちらも(H, W)の符号付きfloat64配列。
     gx = convolve2d(channel, SOBEL_X, quantize=False)
     gy = convolve2d(channel, SOBEL_Y, quantize=False)
     return gx, gy
@@ -95,6 +97,8 @@ def sobel_gradient(channel: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
 
 ```python
 def gradient_magnitude(gx: np.ndarray, gy: np.ndarray) -> np.ndarray:
+    # gx, gy: 勾配のx成分・y成分。どちらも(H, W)の符号付きfloat64配列。
+    # 返却値: 勾配の大きさ|∇I|を0-255に正規化した(H, W)のuint8配列。
     magnitude = np.sqrt(gx**2 + gy**2)
     max_value = magnitude.max()
     if max_value == 0:

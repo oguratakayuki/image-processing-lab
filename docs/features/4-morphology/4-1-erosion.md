@@ -59,12 +59,18 @@ A ⊖ B = {z : B_z ⊆ A}
 
 ```python
 def square_structuring_element(size: int = 3) -> np.ndarray:
+    # size: 構造要素の一辺の長さ(奇数を想定)。
+    # 返却値: size x sizeの真偽値配列。全要素がTrue。
     return np.ones((size, size), dtype=bool)
 
 
 def _local_reduce(
     binary: np.ndarray, structuring_element: np.ndarray, reduce_fn
 ) -> np.ndarray:
+    # binary: (H, W)の二値画像(uint8, 値は0か255のみ)。
+    # structuring_element: (kh, kw)の真偽値配列(構造要素)。
+    # reduce_fn: 近傍の真偽値配列を1つの真偽値に集約する関数(np.allかnp.any)。
+    # 返却値: (H, W)の二値画像(uint8, 値は0か255のみ)。
     kernel_height, kernel_width = structuring_element.shape
     pad_height, pad_width = kernel_height // 2, kernel_width // 2
     padded = np.pad(
@@ -111,6 +117,9 @@ def _local_reduce(
 
 
 def erode(binary: np.ndarray, structuring_element: np.ndarray) -> np.ndarray:
+    # binary: (H, W)の二値画像(uint8, 値は0か255のみ)。
+    # structuring_element: (kh, kw)の真偽値配列(構造要素)。
+    # 返却値: 収縮後の(H, W)二値画像(uint8, 値は0か255のみ)。
     return _local_reduce(binary, structuring_element, np.all)
 ```
 

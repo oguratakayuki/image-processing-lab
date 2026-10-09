@@ -28,6 +28,7 @@ I * (a*K1 + b*K2) = a*(I*K1) + b*(I*K2)   ... カーネルの線形結合
 
 ```python
 def identity_kernel() -> np.ndarray:
+    # 返却値: 3x3の恒等カーネル(中心だけ1、他は0)。float64配列。
     return np.array(
         [
             [0.0, 0.0, 0.0],
@@ -43,6 +44,8 @@ def identity_kernel() -> np.ndarray:
 
 ```python
 def mean_kernel(size: int = 3) -> np.ndarray:
+    # size: カーネルの一辺の長さ(奇数を想定)。
+    # 返却値: size x sizeの単純平均カーネル。全要素が1/size^2のfloat64配列。
     return np.ones((size, size), dtype=np.float64) / (size * size)
 ```
 
@@ -54,6 +57,9 @@ def mean_kernel(size: int = 3) -> np.ndarray:
 
 ```python
 def gaussian_kernel(size: int = 3, sigma: float = 1.0) -> np.ndarray:
+    # size: カーネルの一辺の長さ(奇数を想定)。
+    # sigma: ガウス分布の標準偏差。大きいほど裾野が広がり強くぼける。
+    # 返却値: size x sizeのガウシアンカーネル。総和が1になるよう正規化済みのfloat64配列。
     half = size // 2
     coords = np.arange(-half, half + 1, dtype=np.float64)
     x, y = np.meshgrid(coords, coords)
@@ -86,6 +92,7 @@ g(t) = (1/√(2π)σ) * exp(-t² / (2σ²))
 
 ```python
 def laplacian_kernel() -> np.ndarray:
+    # 返却値: 3x3の離散ラプラシアンカーネル(中心-4、上下左右+1)。float64配列。
     return np.array(
         [
             [0.0, 1.0, 0.0],
@@ -145,6 +152,7 @@ Laplacian:   0  100    55   (右端は境界の影響あり)
 
 ```python
 def sharpen_kernel() -> np.ndarray:
+    # 返却値: 3x3の鮮鋭化カーネル(恒等カーネル - ラプラシアンカーネル)。float64配列。
     return identity_kernel() - laplacian_kernel()
 ```
 

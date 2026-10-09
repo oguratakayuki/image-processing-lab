@@ -60,6 +60,12 @@ import numpy as np
 
 
 def translate(image: np.ndarray, tx: int, ty: int) -> np.ndarray:
+    # image: 平行移動する画像。(H, W)または(H, W, 3)のuint8配列。
+    # tx: x方向(横方向、列方向)の移動量(ピクセル)。正の値で右に移動する。
+    # ty: y方向(縦方向、行方向)の移動量(ピクセル)。正の値で下に移動する。
+    # 返却値: 平行移動後の画像。入力と同じ形状・dtype。画像の端から
+    #         はみ出した部分は切り捨てられ、新しく現れた部分は
+    #         0(黒)で埋められる。
     height, width = image.shape[:2]
 
     output = np.zeros_like(image)

@@ -86,6 +86,11 @@ import numpy as np
 def convolve2d(
     channel: np.ndarray, kernel: np.ndarray, *, quantize: bool = True
 ) -> np.ndarray:
+    # channel: (H, W)の単一チャンネル画像(uint8, 値域0-255)。
+    # kernel: (kh, kw)の畳み込みカーネル。kh, kwは奇数を想定(中心ピクセルが一意に定まるようにするため)。
+    # quantize: Trueなら0-255にクリップし四捨五入してuint8で返す(既定の挙動)。
+    #           Falseなら丸め・クリップをせずfloat64のまま返す(Sobel等、結果が負の値を取りうる場合に使う)。
+    # 返却値: 畳み込み結果。quantizeがTrueなら(H, W)のuint8、Falseなら(H, W)のfloat64。
     kernel_height, kernel_width = kernel.shape
     flipped_kernel = kernel[::-1, ::-1]  # 180°回転 = 畳み込みの定義に必要な反転
 

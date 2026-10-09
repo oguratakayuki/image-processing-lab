@@ -38,6 +38,10 @@ import numpy as np
 def adjust_brightness_contrast(
     image: np.ndarray, alpha: float = 1.0, beta: float = 0.0
 ) -> np.ndarray:
+    # image: 明るさ・コントラストを調整する画像。(H, W)または(H, W, 3)のuint8配列。
+    # alpha: コントラスト係数。1.0で変化なし、1より大きいと差が強調される。
+    # beta: 明るさオフセット。0で変化なし、全ピクセルに一律加算される。
+    # 返却値: 調整後の画像。入力と同じ形状のuint8配列。
     image_float = image.astype(np.float64)
 
     # アフィン変換: 各要素に一律 alpha 倍 + beta シフトを適用

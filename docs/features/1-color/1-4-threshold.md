@@ -39,6 +39,9 @@ import numpy as np
 
 
 def apply_threshold(channel: np.ndarray, t: int) -> np.ndarray:
+    # channel: Grayscale画像。(H, W)のuint8配列(値域0-255)。
+    # t: しきい値。x>=tのピクセルを255(前景)、x<tのピクセルを0(背景)とする。
+    # 返却値: 二値化後の画像。(H, W)のuint8配列(値は0か255のみ)。
     is_foreground = channel >= t  # H(x - t) をベクトル化して一括計算
     return (is_foreground * 255).astype(np.uint8)
 ```
