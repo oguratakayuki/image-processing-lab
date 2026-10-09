@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import {
+  runScale,
   runTranslate,
   type ImageStep,
   type ProcessImageResponse,
@@ -11,6 +12,8 @@ export default function GeometryLabPage() {
   const [file, setFile] = useState<File | null>(null);
   const [tx, setTx] = useState(20);
   const [ty, setTy] = useState(10);
+  const [sx, setSx] = useState(2);
+  const [sy, setSy] = useState(2);
   const [steps, setSteps] = useState<ImageStep[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -82,6 +85,44 @@ export default function GeometryLabPage() {
           className="w-fit rounded bg-foreground px-4 py-2 text-sm text-background disabled:opacity-40"
         >
           平行移動を適用
+        </button>
+      </section>
+
+      <section className="flex flex-col gap-3 border-t border-zinc-200 pt-6 dark:border-zinc-800">
+        <p className="text-sm text-zinc-500">
+          拡大縮小(Scaling)です。逆方向マッピングで逆算した入力座標が
+          非整数になるため、最も近い整数座標の画素をそのまま使う
+          「最近傍補間」で値を決めます。sx・syを別々の値にすると
+          縦横比が変わります。
+        </p>
+        <label className="flex flex-col gap-1 text-sm">
+          sx (横方向の拡大率): {sx.toFixed(1)}
+          <input
+            type="range"
+            min={0.2}
+            max={4}
+            step={0.1}
+            value={sx}
+            onChange={(e) => setSx(Number(e.target.value))}
+          />
+        </label>
+        <label className="flex flex-col gap-1 text-sm">
+          sy (縦方向の拡大率): {sy.toFixed(1)}
+          <input
+            type="range"
+            min={0.2}
+            max={4}
+            step={0.1}
+            value={sy}
+            onChange={(e) => setSy(Number(e.target.value))}
+          />
+        </label>
+        <button
+          onClick={() => runAndShow(() => runScale(file!, sx, sy))}
+          disabled={!file || loading}
+          className="w-fit rounded bg-foreground px-4 py-2 text-sm text-background disabled:opacity-40"
+        >
+          拡大縮小を適用
         </button>
       </section>
 

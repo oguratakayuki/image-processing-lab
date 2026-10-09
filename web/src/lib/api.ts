@@ -138,3 +138,14 @@ export function runTranslate(
     ty: String(ty),
   });
 }
+
+export function runScale(
+  file: File,
+  sx: number,
+  sy: number
+): Promise<ProcessImageResponse> {
+  return postImage<ProcessImageResponse>("/geometry/scale", file, {
+    sx: String(sx),
+    sy: String(sy),
+  });
+}

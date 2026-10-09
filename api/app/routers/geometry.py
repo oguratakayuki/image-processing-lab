@@ -6,6 +6,7 @@ imglab_engine側にある)。
 """
 
 from fastapi import APIRouter, File, Form, UploadFile
+from imglab_engine.geometry.scaling import scale
 from imglab_engine.geometry.translation import translate
 
 from ..schemas.image import ImageStep, ProcessImageResponse
@@ -32,6 +33,30 @@ async def translate_endpoint(
             ImageStep(
                 name="translated",
                 description=f"平行移動 (tx={tx}, ty={ty}): 逆方向マッピングで算出",
+                image_base64=encode_array_to_data_url(result),
+            ),
+        ]
+    )
+
+
+@router.post("/scale", response_model=ProcessImageResponse)
+async def scale_endpoint(
+    file: UploadFile = File(...),
+    sx: float = Form(1.0),
+    sy: float = Form(1.0),
+) -> ProcessImageResponse:
+    image = await decode_upload_to_array(file)
+    result = scale(image, sx=sx, sy=sy)
+    return ProcessImageResponse(
+        steps=[
+            ImageStep(
+                name="original",
+                description="入力画像 (RGB)",
+                image_base64=encode_array_to_data_url(image),
+            ),
+            ImageStep(
+                name="scaled",
+                description=f"拡大縮小 (sx={sx}, sy={sy}): 最近傍補間で算出",
                 image_base64=encode_array_to_data_url(result),
             ),
         ]

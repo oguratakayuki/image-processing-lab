@@ -1,6 +1,6 @@
 # 5-1. 平行移動（Translation）
 
-[← 5. 幾何学的変換へ戻る](README.md)　｜　**5-1**
+[← 5. 幾何学的変換へ戻る](README.md)　｜　**5-1** · [5-2](5-2-scaling.md)
 
 | | |
 |---|---|
@@ -138,4 +138,4 @@ def translate(image: np.ndarray, tx: int, ty: int) -> np.ndarray:
 
 ---
 
-前へ: [← 4-4. Closing（クロージング）](../4-morphology/4-4-closing.md)　｜　次へ: なし（現時点で最後の実装済み項目）
+前へ: [← 4-4. Closing（クロージング）](../4-morphology/4-4-closing.md)　｜　次へ: [5-2. 拡大縮小（Scaling） →](5-2-scaling.md)
