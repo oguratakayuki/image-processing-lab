@@ -169,3 +169,16 @@ export function runShear(
     shy: String(shy),
   });
 }
+
+export function runAffineCompose(
+  file: File,
+  sx: number,
+  sy: number,
+  degrees: number
+): Promise<ProcessImageResponse> {
+  return postImage<ProcessImageResponse>("/geometry/affine-compose", file, {
+    sx: String(sx),
+    sy: String(sy),
+    degrees: String(degrees),
+  });
+}

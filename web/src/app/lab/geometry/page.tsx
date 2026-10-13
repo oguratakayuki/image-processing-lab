@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import {
+  runAffineCompose,
   runRotate,
   runScale,
   runShear,
@@ -19,6 +20,9 @@ export default function GeometryLabPage() {
   const [degrees, setDegrees] = useState(45);
   const [shx, setShx] = useState(0.5);
   const [shy, setShy] = useState(0);
+  const [composeSx, setComposeSx] = useState(2);
+  const [composeSy, setComposeSy] = useState(1);
+  const [composeDegrees, setComposeDegrees] = useState(30);
   const [steps, setSteps] = useState<ImageStep[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -193,6 +197,61 @@ export default function GeometryLabPage() {
           className="w-fit rounded bg-foreground px-4 py-2 text-sm text-background disabled:opacity-40"
         >
           せん断を適用
+        </button>
+      </section>
+
+      <section className="flex flex-col gap-3 border-t border-zinc-200 pt-6 dark:border-zinc-800">
+        <p className="text-sm text-zinc-500">
+          同次座標によるアフィン変換の統一です。拡大縮小と回転、それぞれの
+          3x3行列を合成した「1つの行列」で変換します。R・S（拡大縮小→回転の順）と
+          S・R（回転→拡大縮小の順）を並べて表示し、行列の掛け算が交換法則を
+          満たさない（順序を変えると結果が変わる）ことを確認できます。sx・syを
+          同じ値にすると結果が一致してしまう（均一な拡大縮小は回転と可換なため）
+          ので、わざと別々の値にしています。
+        </p>
+        <label className="flex flex-col gap-1 text-sm">
+          sx (横方向の拡大率): {composeSx.toFixed(1)}
+          <input
+            type="range"
+            min={0.5}
+            max={3}
+            step={0.1}
+            value={composeSx}
+            onChange={(e) => setComposeSx(Number(e.target.value))}
+          />
+        </label>
+        <label className="flex flex-col gap-1 text-sm">
+          sy (縦方向の拡大率): {composeSy.toFixed(1)}
+          <input
+            type="range"
+            min={0.5}
+            max={3}
+            step={0.1}
+            value={composeSy}
+            onChange={(e) => setComposeSy(Number(e.target.value))}
+          />
+        </label>
+        <label className="flex flex-col gap-1 text-sm">
+          degrees (回転角度): {composeDegrees}
+          <input
+            type="range"
+            min={-180}
+            max={180}
+            step={1}
+            value={composeDegrees}
+            onChange={(e) => setComposeDegrees(Number(e.target.value))}
+          />
+        </label>
+        <button
+          onClick={() =>
+            runAndShow(() =>
+              runAffineCompose(file!, composeSx, composeSy, composeDegrees)
+            )
+          }
+          disabled={!file || loading}
+          className="w-fit rounded bg-foreground px-4 py-2 text-sm text-background disabled:opacity-40"
+        >
+          合成行列を比較
         </button>
       </section>
 
