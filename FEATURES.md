@@ -14,7 +14,8 @@ Image Processing Labで実装済みの機能と、それぞれの学習テーマ
 | 2 | 畳み込み | `/lab/convolution` | 畳み込み（カーネル編集・OpenCV比較） | [詳細](docs/features/2-convolution/README.md) |
 | 3 | エッジ検出 | `/lab/edge` | Sobel / Prewitt / Laplacian | [詳細](docs/features/3-edge/README.md) |
 | 4 | 二値画像処理 | `/lab/morphology` | Erosion / Dilation / Opening / Closing | [詳細](docs/features/4-morphology/README.md) |
-| 5 | 幾何学的変換 | `/lab/geometry` | 平行移動 | [詳細](docs/features/5-geometry/README.md) |
+| 5 | 幾何学的変換 | `/lab/geometry` | 平行移動 / 拡大縮小 / 回転 / せん断 / アフィン変換の統一 / バイリニア補間 | [詳細](docs/features/5-geometry/README.md) |
+| 6 | 周波数領域 | `/lab/frequency`（準備中） | 離散フーリエ変換（1次元） | [詳細](docs/features/6-frequency/README.md) |
 
 ## 機能一覧（学習テーマ・実装箇所の早見表）
 
@@ -63,8 +64,14 @@ Image Processing Labで実装済みの機能と、それぞれの学習テーマ
 | [5-5](docs/features/5-geometry/5-5-affine.md) | 同次座標によるアフィン変換の統一 | 同次座標、アフィン変換行列、変換の合成 | `engine/src/imglab_engine/geometry/affine.py` — `affine_transform()`, `translation_matrix()`, `scaling_matrix()`, `rotation_matrix()`, `shear_matrix()` |
 | [5-6](docs/features/5-geometry/5-6-interpolation.md) | バイリニア補間 | 線形補間、バイリニア補間 | `engine/src/imglab_engine/geometry/interpolation.py` — `nearest_neighbor_sample()`, `bilinear_sample()` |
 
+### 6. 周波数領域（[詳細](docs/features/6-frequency/README.md)）
+
+| 番号 | 機能 | 学習テーマ | 実装ファイル / 関数 |
+|---|---|---|---|
+| [6-1](docs/features/6-frequency/6-1-dft.md) | 離散フーリエ変換（1次元） | 複素指数関数、オイラーの公式、周波数という見方 | `engine/src/imglab_engine/frequency/dft.py` — `dft_1d()` |
+
 ## 補足
 
-- 各機能をAPI経由で呼び出す配線は `api/app/routers/{color,histogram,convolution,edge,morphology,geometry}.py`、画面表示は `web/src/app/lab/{color,convolution,edge,morphology,geometry}/page.tsx` に対応している。学習テーマそのものの実装は全て `engine/` 側の関数にある。
-- engineテストは107件、全てパス（2026-10-14時点）。
-- 詳細ページ（概念・数式・コード解説）は「1. 色調整」「2. 畳み込み」「3. エッジ検出」「4. 二値画像処理」「5. 幾何学的変換」の全グループで整備済み。
+- 各機能をAPI経由で呼び出す配線は `api/app/routers/{color,histogram,convolution,edge,morphology,geometry}.py`、画面表示は `web/src/app/lab/{color,convolution,edge,morphology,geometry}/page.tsx` に対応している。学習テーマそのものの実装は全て `engine/` 側の関数にある（6は1次元信号を扱うためAPI/Webは未配線、2次元DFTを実装する回で追加予定）。
+- engineテストは113件、全てパス（2026-10-14時点）。
+- 詳細ページ（概念・数式・コード解説）は「1. 色調整」「2. 畳み込み」「3. エッジ検出」「4. 二値画像処理」「5. 幾何学的変換」「6. 周波数領域」の全グループで整備済み。
