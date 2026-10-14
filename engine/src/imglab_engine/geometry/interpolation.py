@@ -59,13 +59,13 @@ def _pixel_or_zero(image: np.ndarray, y: int, x: int):
     if 0 <= y < height and 0 <= x < width:
         # 範囲内: その画素の値をfloat64に変換して返す。
         return image[y, x].astype(np.float64)
-    if image.ndim == 2:
-        # 範囲外 かつ Grayscale画像(2次元): スカラーの0を返す。
-        return np.float64(0.0)
-    # 範囲外 かつ RGB画像(3次元): 範囲内の場合(image[y,x]が長さ3の
-    # 配列になる)と形を揃えるため、チャンネル数ぶんのゼロ配列を返す
+    # 範囲外: 範囲内の場合(image[y,x])と形を揃えたゼロを返す。
+    # image.shape[2:]は、(H,W)画像なら空のタプル()、(H,W,3)画像
+    # なら(3,)になるスライス。np.zeros(())は0次元のゼロ(スカラー
+    # 相当)、np.zeros((3,))は長さ3のゼロ配列になり、どちらも
+    # image[y,x].astype(np.float64)と同じ形で返せる
     # (後続の加重平均の計算で、配列の形が食い違わないようにするため)。
-    return np.zeros(image.shape[2], dtype=np.float64)
+    return np.zeros(image.shape[2:], dtype=np.float64)
 
 
 def nearest_neighbor_sample(image: np.ndarray, y: float, x: float):
