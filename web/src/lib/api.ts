@@ -182,3 +182,14 @@ export function runAffineCompose(
     degrees: String(degrees),
   });
 }
+
+export function runInterpolationCompare(
+  file: File,
+  degrees: number
+): Promise<ProcessImageResponse> {
+  return postImage<ProcessImageResponse>(
+    "/geometry/interpolation-compare",
+    file,
+    { degrees: String(degrees) }
+  );
+}

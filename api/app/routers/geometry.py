@@ -10,6 +10,7 @@ from imglab_engine.geometry.affine import (
     affine_transform,
     rotation_matrix,
     scaling_matrix,
+    translation_matrix,
 )
 from imglab_engine.geometry.rotation import rotate
 from imglab_engine.geometry.scaling import scale
@@ -161,6 +162,47 @@ async def affine_compose_endpoint(
                     f"(S・R, sx={sx}, sy={sy}, degrees={degrees})"
                 ),
                 image_base64=encode_array_to_data_url(result_b),
+            ),
+        ]
+    )
+
+
+@router.post("/interpolation-compare", response_model=ProcessImageResponse)
+async def interpolation_compare_endpoint(
+    file: UploadFile = File(...),
+    degrees: float = Form(45.0),
+) -> ProcessImageResponse:
+    """同じ回転(画像の中心軸)を最近傍補間・バイリニア補間の両方で
+    適用し、画質の違いを比較するエンドポイント。
+    """
+    image = await decode_upload_to_array(file)
+    height, width = image.shape[:2]
+    center_y, center_x = (height - 1) / 2.0, (width - 1) / 2.0
+    matrix = (
+        translation_matrix(center_x, center_y)
+        @ rotation_matrix(degrees)
+        @ translation_matrix(-center_x, -center_y)
+    )
+
+    result_nearest = affine_transform(image, matrix, interpolation="nearest")
+    result_bilinear = affine_transform(image, matrix, interpolation="bilinear")
+
+    return ProcessImageResponse(
+        steps=[
+            ImageStep(
+                name="original",
+                description="入力画像 (RGB)",
+                image_base64=encode_array_to_data_url(image),
+            ),
+            ImageStep(
+                name="nearest",
+                description=f"最近傍補間 (degrees={degrees})",
+                image_base64=encode_array_to_data_url(result_nearest),
+            ),
+            ImageStep(
+                name="bilinear",
+                description=f"バイリニア補間 (degrees={degrees})",
+                image_base64=encode_array_to_data_url(result_bilinear),
             ),
         ]
     )

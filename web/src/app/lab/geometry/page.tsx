@@ -3,6 +3,7 @@
 import { useState } from "react";
 import {
   runAffineCompose,
+  runInterpolationCompare,
   runRotate,
   runScale,
   runShear,
@@ -23,6 +24,7 @@ export default function GeometryLabPage() {
   const [composeSx, setComposeSx] = useState(2);
   const [composeSy, setComposeSy] = useState(1);
   const [composeDegrees, setComposeDegrees] = useState(30);
+  const [interpDegrees, setInterpDegrees] = useState(45);
   const [steps, setSteps] = useState<ImageStep[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -252,6 +254,37 @@ export default function GeometryLabPage() {
           className="w-fit rounded bg-foreground px-4 py-2 text-sm text-background disabled:opacity-40"
         >
           合成行列を比較
+        </button>
+      </section>
+
+      <section className="flex flex-col gap-3 border-t border-zinc-200 pt-6 dark:border-zinc-800">
+        <p className="text-sm text-zinc-500">
+          補間方法の比較です。同じ回転（画像の中心軸）を、最近傍補間
+          （周囲4点のうち最も近い1点をそのまま使う）とバイリニア補間
+          （周囲4点を距離に応じて加重平均する）の両方で適用します。
+          回転(Rotation)のページで見つかった「孤立した1点が45度回転で
+          消える」問題が、バイリニア補間では起きない（値が周辺のピクセル
+          に分散して残る）ことも確認できます。
+        </p>
+        <label className="flex flex-col gap-1 text-sm">
+          degrees (回転角度): {interpDegrees}
+          <input
+            type="range"
+            min={-180}
+            max={180}
+            step={1}
+            value={interpDegrees}
+            onChange={(e) => setInterpDegrees(Number(e.target.value))}
+          />
+        </label>
+        <button
+          onClick={() =>
+            runAndShow(() => runInterpolationCompare(file!, interpDegrees))
+          }
+          disabled={!file || loading}
+          className="w-fit rounded bg-foreground px-4 py-2 text-sm text-background disabled:opacity-40"
+        >
+          補間方法を比較
         </button>
       </section>
 

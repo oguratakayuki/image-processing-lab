@@ -101,3 +101,46 @@ def test_affine_transform_output_dtype_and_shape_match_input():
     result = affine_transform(image, rotation_matrix(15))
     assert result.dtype == np.uint8
     assert result.shape == image.shape
+
+
+def test_affine_transform_default_interpolation_is_nearest():
+    # interpolationを明示しない場合、これまでのtranslate/rotate/
+    # shearと同じ最近傍補間と一致するはず(後方互換性の確認)。
+    rng = np.random.default_rng(1)
+    image = rng.integers(0, 256, size=(6, 6), dtype=np.uint8)
+    matrix = rotation_matrix(20)
+
+    default_result = affine_transform(image, matrix)
+    explicit_nearest = affine_transform(image, matrix, interpolation="nearest")
+
+    np.testing.assert_array_equal(default_result, explicit_nearest)
+
+
+def test_bilinear_interpolation_rescues_the_vanishing_point():
+    # 5-3で見つかった「孤立した1点が45度回転で消える」問題が、
+    # バイリニア補間では起きない(値が周辺の複数ピクセルに分散して
+    # 残る)ことを確認する。
+    image = np.zeros((5, 5), dtype=np.uint8)
+    image[0, 2] = 255
+    height, width = image.shape
+    center_y, center_x = (height - 1) / 2.0, (width - 1) / 2.0
+    matrix = (
+        translation_matrix(center_x, center_y)
+        @ rotation_matrix(45)
+        @ translation_matrix(-center_x, -center_y)
+    )
+
+    nearest_result = affine_transform(image, matrix, interpolation="nearest")
+    bilinear_result = affine_transform(image, matrix, interpolation="bilinear")
+
+    assert nearest_result.sum() == 0  # 最近傍補間では点が消える
+    assert bilinear_result.sum() > 0  # バイリニア補間では値が残る
+
+
+def test_invalid_interpolation_raises_value_error():
+    image = np.zeros((3, 3), dtype=np.uint8)
+    try:
+        affine_transform(image, np.eye(3), interpolation="bicubic")
+        assert False, "ValueErrorが発生するはず"
+    except ValueError:
+        pass

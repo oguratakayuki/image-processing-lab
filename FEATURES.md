@@ -61,9 +61,10 @@ Image Processing Labで実装済みの機能と、それぞれの学習テーマ
 | [5-3](docs/features/5-geometry/5-3-rotation.md) | 回転（Rotation） | 回転行列、直交行列の逆行列、回転中心 | `engine/src/imglab_engine/geometry/rotation.py` — `rotate()` |
 | [5-4](docs/features/5-geometry/5-4-shear.md) | せん断（Shear） | せん断行列、一般の2×2行列の逆行列（行列式） | `engine/src/imglab_engine/geometry/shear.py` — `shear()` |
 | [5-5](docs/features/5-geometry/5-5-affine.md) | 同次座標によるアフィン変換の統一 | 同次座標、アフィン変換行列、変換の合成 | `engine/src/imglab_engine/geometry/affine.py` — `affine_transform()`, `translation_matrix()`, `scaling_matrix()`, `rotation_matrix()`, `shear_matrix()` |
+| [5-6](docs/features/5-geometry/5-6-interpolation.md) | バイリニア補間 | 線形補間、バイリニア補間 | `engine/src/imglab_engine/geometry/interpolation.py` — `nearest_neighbor_sample()`, `bilinear_sample()` |
 
 ## 補足
 
 - 各機能をAPI経由で呼び出す配線は `api/app/routers/{color,histogram,convolution,edge,morphology,geometry}.py`、画面表示は `web/src/app/lab/{color,convolution,edge,morphology,geometry}/page.tsx` に対応している。学習テーマそのものの実装は全て `engine/` 側の関数にある。
-- engineテストは98件、全てパス（2026-10-13時点）。
+- engineテストは107件、全てパス（2026-10-14時点）。
 - 詳細ページ（概念・数式・コード解説）は「1. 色調整」「2. 畳み込み」「3. エッジ検出」「4. 二値画像処理」「5. 幾何学的変換」の全グループで整備済み。

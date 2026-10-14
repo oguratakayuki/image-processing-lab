@@ -78,6 +78,8 @@ import math
 
 import numpy as np
 
+from .interpolation import bilinear_sample, nearest_neighbor_sample
+
 
 def translation_matrix(tx: float, ty: float) -> np.ndarray:
     """平行移動を表す3x3のアフィン変換行列を作る。
@@ -160,9 +162,10 @@ def shear_matrix(shx: float, shy: float) -> np.ndarray:
     )
 
 
-def affine_transform(image: np.ndarray, matrix: np.ndarray) -> np.ndarray:
-    """3x3のアフィン変換行列で画像を変換する(逆方向マッピング、
-    最近傍補間)。
+def affine_transform(
+    image: np.ndarray, matrix: np.ndarray, interpolation: str = "nearest"
+) -> np.ndarray:
+    """3x3のアフィン変換行列で画像を変換する(逆方向マッピング)。
 
     前提条件:
         imageは(H, W)のGrayscale画像、または(H, W, 3)のRGB画像の
@@ -176,11 +179,24 @@ def affine_transform(image: np.ndarray, matrix: np.ndarray) -> np.ndarray:
         matrix: 3x3のアフィン変換行列。`translation_matrix()`等の
             生成関数や、それらを`@`演算子で掛け合わせた合成行列を
             渡す。
+        interpolation: 補間方法。[5-6](interpolation.py)の
+            `"nearest"`(最近傍補間、既定値)か`"bilinear"`
+            (バイリニア補間)のいずれか。
 
     Returns:
         変換後の画像。入力と同じ形状・dtype。枠からはみ出した部分は
         切り捨てられ、新しく現れた部分は0(黒)で埋められる。
     """
+    # interpolationの文字列に応じて、実際にサンプリングに使う関数を
+    # 選ぶ。この後のループでは、選んだ関数がどちらであるかを気にせず
+    # sampler(image, src_y, src_x) という同じ形で呼び出せる。
+    if interpolation == "nearest":
+        sampler = nearest_neighbor_sample
+    elif interpolation == "bilinear":
+        sampler = bilinear_sample
+    else:
+        raise ValueError(f"unknown interpolation: {interpolation!r}")
+
     height, width = image.shape[:2]
 
     # 3x3行列の左上2x2を線形部分、右上2x1を平行移動部分として
@@ -209,13 +225,13 @@ def affine_transform(image: np.ndarray, matrix: np.ndarray) -> np.ndarray:
             src_x = inv_a * out_x + inv_b * out_y + inv_tx
             src_y = inv_c * out_x + inv_d * out_y + inv_ty
 
-            # 最近傍補間: 非整数座標を四捨五入する。
-            nearest_y = round(src_y)
-            nearest_x = round(src_x)
+            # 選んだ補間方法(最近傍 or バイリニア)で画素値を求める。
+            # 範囲外が絡む場合は、samplerの内部で0として扱われる。
+            value = sampler(image, src_y, src_x)
 
-            # 入力座標は実際に画像の中に存在するかどうか。
-            if 0 <= nearest_y < height and 0 <= nearest_x < width:
-                output[out_y, out_x] = image[nearest_y, nearest_x]
-            # 範囲外なら、outputはすでに0で初期化済みなので何もしない。
+            # 補間結果はfloat64なので、画像と同じ型(uint8)に戻す。
+            # np.round()は配列・スカラーどちらにも使える(bilinearは
+            # (3,)配列、nearestはスカラーまたは(3,)配列になりうる)。
+            output[out_y, out_x] = np.round(value).astype(image.dtype)
 
     return output
