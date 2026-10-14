@@ -68,6 +68,9 @@ import numpy as np
 
 
 def _pixel_or_zero(image: np.ndarray, y: int, x: int):
+    # image: (H, W)または(H, W, 3)のuint8配列。
+    # y, x: 整数の格子点座標。
+    # 返却値: float64の画素値。(H, W)画像ならスカラー、(H, W, 3)画像なら長さ3の配列。
     height, width = image.shape[:2]
     if 0 <= y < height and 0 <= x < width:
         return image[y, x].astype(np.float64)
