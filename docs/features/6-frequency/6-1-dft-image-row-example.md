@@ -8,7 +8,7 @@
 
 ## 📊 画像の1行（横8ピクセル）とDFTの関係（図解）
 
-[画像の1行（横8ピクセル）に対するDFT適用例](assets/6-1-dft-image-row-example.svg)
+![画像の1行（横8ピクセル）に対するDFT適用例](assets/6-1-dft-image-row-example.svg)
 
 横8ピクセルの行を2パターン用意し、実際の輝度値とDFTの振幅スペクトラムを並べて示した図。
 
