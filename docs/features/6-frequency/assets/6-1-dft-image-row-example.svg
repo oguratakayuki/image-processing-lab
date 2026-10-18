@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="3400" height="3500" viewBox="0 0 680 700" font-family="Helvetica, Arial, sans-serif">
-  <rect x="0" y="0" width="680" height="700" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="3400" height="3700" viewBox="0 0 680 740" font-family="Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="680" height="740" fill="#ffffff"/>
 
   <text x="20" y="28" font-size="20" font-weight="bold" fill="#111827">画像の1行（横8ピクセル）に対するDFT適用例</text>
 
@@ -70,66 +70,68 @@
 
   <!-- 結論（グラフの後に明記） -->
   <text x="20" y="348" font-size="14" font-weight="bold" fill="#2563eb">→ 結論：DFTの結果、k=1 と k=7（鏡映）にピークが現れる</text>
+  <text x="20" y="366" font-size="13" fill="#2563eb">（低周波＝ゆるやかな明暗変化）</text>
 
   <!-- ===== Section 2: 明暗が3回すばやく変化する行 ===== -->
-  <text x="20" y="386" font-size="15" font-weight="bold" fill="#111827">明暗が3回すばやく変化する行</text>
+  <text x="20" y="410" font-size="15" font-weight="bold" fill="#111827">明暗が3回すばやく変化する行</text>
 
-  <text x="55"  y="402" font-size="11" fill="#6b7280" text-anchor="middle">n=0</text>
-  <text x="131" y="402" font-size="11" fill="#6b7280" text-anchor="middle">n=1</text>
-  <text x="207" y="402" font-size="11" fill="#6b7280" text-anchor="middle">n=2</text>
-  <text x="283" y="402" font-size="11" fill="#6b7280" text-anchor="middle">n=3</text>
-  <text x="359" y="402" font-size="11" fill="#6b7280" text-anchor="middle">n=4</text>
-  <text x="435" y="402" font-size="11" fill="#6b7280" text-anchor="middle">n=5</text>
-  <text x="511" y="402" font-size="11" fill="#6b7280" text-anchor="middle">n=6</text>
-  <text x="587" y="402" font-size="11" fill="#6b7280" text-anchor="middle">n=7</text>
+  <text x="55"  y="426" font-size="11" fill="#6b7280" text-anchor="middle">n=0</text>
+  <text x="131" y="426" font-size="11" fill="#6b7280" text-anchor="middle">n=1</text>
+  <text x="207" y="426" font-size="11" fill="#6b7280" text-anchor="middle">n=2</text>
+  <text x="283" y="426" font-size="11" fill="#6b7280" text-anchor="middle">n=3</text>
+  <text x="359" y="426" font-size="11" fill="#6b7280" text-anchor="middle">n=4</text>
+  <text x="435" y="426" font-size="11" fill="#6b7280" text-anchor="middle">n=5</text>
+  <text x="511" y="426" font-size="11" fill="#6b7280" text-anchor="middle">n=6</text>
+  <text x="587" y="426" font-size="11" fill="#6b7280" text-anchor="middle">n=7</text>
 
-  <rect x="20"  y="412" width="70" height="70" fill="#e4e4e4" stroke="#9ca3af"/>
-  <rect x="96"  y="412" width="70" height="70" fill="#393939" stroke="#9ca3af"/>
-  <rect x="172" y="412" width="70" height="70" fill="#808080" stroke="#9ca3af"/>
-  <rect x="248" y="412" width="70" height="70" fill="#c7c7c7" stroke="#9ca3af"/>
-  <rect x="324" y="412" width="70" height="70" fill="#1c1c1c" stroke="#9ca3af"/>
-  <rect x="400" y="412" width="70" height="70" fill="#c7c7c7" stroke="#9ca3af"/>
-  <rect x="476" y="412" width="70" height="70" fill="#808080" stroke="#9ca3af"/>
-  <rect x="552" y="412" width="70" height="70" fill="#393939" stroke="#9ca3af"/>
+  <rect x="20"  y="436" width="70" height="70" fill="#e4e4e4" stroke="#9ca3af"/>
+  <rect x="96"  y="436" width="70" height="70" fill="#393939" stroke="#9ca3af"/>
+  <rect x="172" y="436" width="70" height="70" fill="#808080" stroke="#9ca3af"/>
+  <rect x="248" y="436" width="70" height="70" fill="#c7c7c7" stroke="#9ca3af"/>
+  <rect x="324" y="436" width="70" height="70" fill="#1c1c1c" stroke="#9ca3af"/>
+  <rect x="400" y="436" width="70" height="70" fill="#c7c7c7" stroke="#9ca3af"/>
+  <rect x="476" y="436" width="70" height="70" fill="#808080" stroke="#9ca3af"/>
+  <rect x="552" y="436" width="70" height="70" fill="#393939" stroke="#9ca3af"/>
 
-  <text x="55"  y="498" font-size="12" fill="#374151" text-anchor="middle">228</text>
-  <text x="131" y="498" font-size="12" fill="#374151" text-anchor="middle">57.3</text>
-  <text x="207" y="498" font-size="12" fill="#374151" text-anchor="middle">128</text>
-  <text x="283" y="498" font-size="12" fill="#374151" text-anchor="middle">198.7</text>
-  <text x="359" y="498" font-size="12" fill="#374151" text-anchor="middle">28</text>
-  <text x="435" y="498" font-size="12" fill="#374151" text-anchor="middle">198.7</text>
-  <text x="511" y="498" font-size="12" fill="#374151" text-anchor="middle">128</text>
-  <text x="587" y="498" font-size="12" fill="#374151" text-anchor="middle">57.3</text>
+  <text x="55"  y="522" font-size="12" fill="#374151" text-anchor="middle">228</text>
+  <text x="131" y="522" font-size="12" fill="#374151" text-anchor="middle">57.3</text>
+  <text x="207" y="522" font-size="12" fill="#374151" text-anchor="middle">128</text>
+  <text x="283" y="522" font-size="12" fill="#374151" text-anchor="middle">198.7</text>
+  <text x="359" y="522" font-size="12" fill="#374151" text-anchor="middle">28</text>
+  <text x="435" y="522" font-size="12" fill="#374151" text-anchor="middle">198.7</text>
+  <text x="511" y="522" font-size="12" fill="#374151" text-anchor="middle">128</text>
+  <text x="587" y="522" font-size="12" fill="#374151" text-anchor="middle">57.3</text>
 
-  <text x="20" y="522" font-size="13" fill="#374151">この行をDFTにかけると、周波数ごとの振幅 |X_k| はこうなる（k=1〜7。直流成分 k=0=1024 は割愛）</text>
+  <text x="20" y="546" font-size="13" fill="#374151">この行をDFTにかけると、周波数ごとの振幅 |X_k| はこうなる（k=1〜7。直流成分 k=0=1024 は割愛）</text>
 
-  <line x1="14" y1="612" x2="628" y2="612" stroke="#9ca3af" stroke-width="1"/>
+  <line x1="14" y1="636" x2="628" y2="636" stroke="#9ca3af" stroke-width="1"/>
 
   <!-- bars: k=1..7, values [0,0,400,0,400,0,0] -->
-  <rect x="33"  y="609" width="50" height="3"  fill="#d1d5db"/>
-  <rect x="109" y="609" width="50" height="3"  fill="#d1d5db"/>
-  <rect x="185" y="542" width="50" height="70" fill="#2563eb"/>
-  <rect x="261" y="609" width="50" height="3"  fill="#d1d5db"/>
-  <rect x="337" y="542" width="50" height="70" fill="#2563eb"/>
-  <rect x="413" y="609" width="50" height="3"  fill="#d1d5db"/>
-  <rect x="489" y="609" width="50" height="3"  fill="#d1d5db"/>
+  <rect x="33"  y="633" width="50" height="3"  fill="#d1d5db"/>
+  <rect x="109" y="633" width="50" height="3"  fill="#d1d5db"/>
+  <rect x="185" y="566" width="50" height="70" fill="#2563eb"/>
+  <rect x="261" y="633" width="50" height="3"  fill="#d1d5db"/>
+  <rect x="337" y="566" width="50" height="70" fill="#2563eb"/>
+  <rect x="413" y="633" width="50" height="3"  fill="#d1d5db"/>
+  <rect x="489" y="633" width="50" height="3"  fill="#d1d5db"/>
 
-  <text x="58"  y="603" font-size="11" fill="#9ca3af" text-anchor="middle">0</text>
-  <text x="134" y="603" font-size="11" fill="#9ca3af" text-anchor="middle">0</text>
-  <text x="210" y="536" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="bold">400</text>
-  <text x="286" y="603" font-size="11" fill="#9ca3af" text-anchor="middle">0</text>
-  <text x="362" y="536" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="bold">400</text>
-  <text x="438" y="603" font-size="11" fill="#9ca3af" text-anchor="middle">0</text>
-  <text x="514" y="603" font-size="11" fill="#9ca3af" text-anchor="middle">0</text>
+  <text x="58"  y="627" font-size="11" fill="#9ca3af" text-anchor="middle">0</text>
+  <text x="134" y="627" font-size="11" fill="#9ca3af" text-anchor="middle">0</text>
+  <text x="210" y="560" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="bold">400</text>
+  <text x="286" y="627" font-size="11" fill="#9ca3af" text-anchor="middle">0</text>
+  <text x="362" y="560" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="bold">400</text>
+  <text x="438" y="627" font-size="11" fill="#9ca3af" text-anchor="middle">0</text>
+  <text x="514" y="627" font-size="11" fill="#9ca3af" text-anchor="middle">0</text>
 
-  <text x="58"  y="628" font-size="12" fill="#374151" text-anchor="middle">k=1</text>
-  <text x="134" y="628" font-size="12" fill="#374151" text-anchor="middle">k=2</text>
-  <text x="210" y="628" font-size="12" fill="#374151" text-anchor="middle">k=3</text>
-  <text x="286" y="628" font-size="12" fill="#374151" text-anchor="middle">k=4</text>
-  <text x="362" y="628" font-size="12" fill="#374151" text-anchor="middle">k=5</text>
-  <text x="438" y="628" font-size="12" fill="#374151" text-anchor="middle">k=6</text>
-  <text x="514" y="628" font-size="12" fill="#374151" text-anchor="middle">k=7</text>
+  <text x="58"  y="652" font-size="12" fill="#374151" text-anchor="middle">k=1</text>
+  <text x="134" y="652" font-size="12" fill="#374151" text-anchor="middle">k=2</text>
+  <text x="210" y="652" font-size="12" fill="#374151" text-anchor="middle">k=3</text>
+  <text x="286" y="652" font-size="12" fill="#374151" text-anchor="middle">k=4</text>
+  <text x="362" y="652" font-size="12" fill="#374151" text-anchor="middle">k=5</text>
+  <text x="438" y="652" font-size="12" fill="#374151" text-anchor="middle">k=6</text>
+  <text x="514" y="652" font-size="12" fill="#374151" text-anchor="middle">k=7</text>
 
   <!-- 結論（グラフの後に明記） -->
-  <text x="20" y="658" font-size="14" font-weight="bold" fill="#2563eb">→ 結論：DFTの結果、k=3 と k=5（鏡映）にピークが現れる</text>
+  <text x="20" y="682" font-size="14" font-weight="bold" fill="#2563eb">→ 結論：DFTの結果、k=3 と k=5（鏡映）にピークが現れる</text>
+  <text x="20" y="700" font-size="13" fill="#2563eb">（高周波＝激しく振動する変化）</text>
 </svg>
