@@ -67,7 +67,12 @@ def dft_1d(signal: np.ndarray) -> np.ndarray:
         # 周波数kの成分X_kを、信号の全項を足し合わせて計算する。
         total = 0.0 + 0.0j
         for n in range(n_samples):
-            # 角度(ラジアン)。np.piは円周率πの定数。
+            # 定義式のexp(-2πikn/N)のうち、iを掛ける前の角度
+            # (ラジアン)部分だけを先に計算する。np.piは円周率πの
+            # 定数。2*np.piは1周(360度)分の角度、k*n/n_samplesは
+            # 周波数kとサンプル位置nから決まる「1周のうちどれだけ
+            # 回転した位置か」という比率。先頭の負号は定義式の
+            # exp(-2πikn/N)の符号に対応する。
             angle = -2 * np.pi * k * n / n_samples
 
             # np.exp(1j * angle)は、オイラーの公式により
