@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2800" height="2640" viewBox="0 0 700 660" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrowGray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#6b7280"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="700" height="660" fill="#ffffff"/>
+
+  <text x="20" y="28" font-size="18" font-weight="bold" fill="#111827">物差し（基準波）が信号を測る様子（複素平面でのベクトル合成）</text>
+
+  <!-- ===== Panel 1: k=1（信号と一致する物差し） ===== -->
+  <text x="20" y="56" font-size="15" font-weight="bold" fill="#111827">k=1（信号と一致する物差し）</text>
+  <text x="20" y="74" font-size="12" fill="#374151">各項 x_n・exp(-2πi・1・n/8) を矢印でつなぎ、合計がどこに着地するか見る</text>
+
+  <!-- axes -->
+  <line x1="75" y1="170" x2="375" y2="170" stroke="#9ca3af" stroke-width="1"/>
+  <line x1="150" y1="95" x2="150" y2="245" stroke="#9ca3af" stroke-width="1"/>
+  <text x="380" y="174" font-size="11" fill="#6b7280">Re</text>
+  <text x="153" y="100" font-size="11" fill="#6b7280">Im</text>
+  <text x="150" y="190" font-size="10" fill="#9ca3af" text-anchor="middle">0</text>
+  <text x="200" y="190" font-size="10" fill="#9ca3af" text-anchor="middle">1</text>
+  <text x="250" y="190" font-size="10" fill="#9ca3af" text-anchor="middle">2</text>
+  <text x="300" y="190" font-size="10" fill="#9ca3af" text-anchor="middle">3</text>
+  <text x="350" y="190" font-size="10" fill="#9ca3af" text-anchor="middle">4</text>
+
+  <!-- path (verified pixel coordinates, 4px pullback before each vertex) -->
+  <line x1="150" y1="170"   x2="196.0" y2="170.0" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="200" y1="170"   x2="222.2" y2="192.2" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+  <circle cx="225" cy="195" r="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="225" y1="195"   x2="247.2" y2="172.8" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="250" y1="170"   x2="296.0" y2="170.0" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="300" y1="170"   x2="322.2" y2="192.2" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+  <circle cx="325" cy="195" r="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="325" y1="195"   x2="347.2" y2="172.8" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <text x="175" y="158" font-size="11" fill="#2563eb" text-anchor="middle">n=0</text>
+  <text x="150" y="150" font-size="11" fill="#374151" text-anchor="middle">出発点(原点)</text>
+  <text x="225" y="213" font-size="10" fill="#6b7280" text-anchor="middle">○ = その項の寄与が0</text>
+
+  <circle cx="350" cy="170" r="5" fill="#2563eb"/>
+  <text x="358" y="167" font-size="13" font-weight="bold" fill="#2563eb">X_1 = 4</text>
+
+  <text x="20" y="240" font-size="13" font-weight="bold" fill="#2563eb">→ 結論：8項の合計が(4, 0)まで進む → X_1 = 4（大きな値＝信号と物差しが一致）</text>
+
+  <!-- ===== Panel 2: k=3（信号と一致しない物差し） ===== -->
+  <text x="20" y="396" font-size="15" font-weight="bold" fill="#111827">k=3（信号と一致しない物差し）</text>
+  <text x="20" y="414" font-size="12" fill="#374151">同じ信号を、周波数3の物差し exp(-2πi・3・n/8) で測るとどうなるか</text>
+
+  <line x1="75" y1="510" x2="375" y2="510" stroke="#9ca3af" stroke-width="1"/>
+  <line x1="150" y1="435" x2="150" y2="615" stroke="#9ca3af" stroke-width="1"/>
+  <text x="380" y="514" font-size="11" fill="#6b7280">Re</text>
+  <text x="153" y="440" font-size="11" fill="#6b7280">Im</text>
+  <text x="150" y="530" font-size="10" fill="#9ca3af" text-anchor="middle">0</text>
+  <text x="300" y="530" font-size="10" fill="#9ca3af" text-anchor="middle">1</text>
+
+  <!-- path n=0..3 -->
+  <line x1="150" y1="510"   x2="296.0" y2="510.0" stroke="#6b7280" stroke-width="2" marker-end="url(#arrowGray)"/>
+  <line x1="300" y1="510"   x2="227.8" y2="582.2" stroke="#6b7280" stroke-width="2" marker-end="url(#arrowGray)"/>
+  <circle cx="225" cy="585" r="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="225" y1="585"   x2="152.8" y2="512.8" stroke="#6b7280" stroke-width="2" marker-end="url(#arrowGray)"/>
+  <!-- path n=4..7 (信号の対称性により、n=0..3と全く同じ経路を再びたどる) -->
+  <line x1="150" y1="510"   x2="296.0" y2="510.0" stroke="#6b7280" stroke-width="2" marker-end="url(#arrowGray)"/>
+  <line x1="300" y1="510"   x2="227.8" y2="582.2" stroke="#6b7280" stroke-width="2" marker-end="url(#arrowGray)"/>
+  <line x1="225" y1="585"   x2="152.8" y2="512.8" stroke="#6b7280" stroke-width="2" marker-end="url(#arrowGray)"/>
+
+  <text x="150" y="498" font-size="11" fill="#374151" text-anchor="middle">出発点(原点)</text>
+  <text x="223" y="498" font-size="11" fill="#6b7280" text-anchor="middle">n=0</text>
+  <text x="240" y="599" font-size="10" fill="#6b7280">（n=4〜7も同じ経路をたどる）</text>
+
+  <circle cx="150" cy="510" r="6" fill="none" stroke="#6b7280" stroke-width="2"/>
+  <text x="48" y="530" font-size="13" font-weight="bold" fill="#6b7280" text-anchor="middle">X_3 = 0</text>
+  <text x="48" y="546" font-size="11" fill="#6b7280" text-anchor="middle">（原点に戻る）</text>
+
+  <text x="20" y="636" font-size="13" font-weight="bold" fill="#6b7280">→ 結論：8項の合計は元の原点に戻る → X_3 = 0（信号と物差しが一致せず打ち消し合う）</text>
+</svg>
