@@ -20,7 +20,7 @@
 連続関数の畳み込みは積分で定義される。
 
 $$
-(f * h)(x) = \int f(\tau) \, h(x - \tau) \, d\tau
+(f * h)(x) = \int f(\tau) h(x - \tau) d\tau
 $$
 
 （`f`と`h`が何を指すかは[補足資料](2-1-convolution-fh-notation.md)を参照）
