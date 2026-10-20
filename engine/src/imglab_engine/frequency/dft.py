@@ -1,4 +1,4 @@
-"""離散フーリエ変換(Discrete Fourier Transform, DFT)。
+"""離散フーリエ変換(DFT)と逆離散フーリエ変換(IDFT)。
 
 数学的背景:
     フーリエ変換の直感:
@@ -36,6 +36,34 @@
         この素朴な実装は、N個の出力それぞれについてN項の和を計算
         するため、計算量はO(N²)。高速フーリエ変換(FFT)を使うと
         O(N log N)に削減できる(FFTは今後のトピックで扱う)。
+
+    IDFT(逆離散フーリエ変換)の定義:
+        DFTで求めた周波数成分 X_0, X_1, ..., X_{N-1} から、
+        元の信号 x_n を復元する変換。
+
+            x_n = (1/N)・Σ_{k=0}^{N-1} X_k・exp(+2πi・k・n/N),  n = 0, ..., N-1
+
+        DFTの定義式と見比べると、2つの違いがある。
+
+        1. 指数の符号が`-`から`+`に反転している。
+        2. 先頭に`1/N`という正規化係数が付く。
+
+        符号が反転する理由:
+            DFTは「x_nを、周波数kの物差しexp(-2πikn/N)で測って
+            X_kを得る」という操作だった(物差しとしての見方は
+            docs/features/6-frequency/6-1-dft-ruler-analogy.md を
+            参照)。IDFTはその逆操作にあたるため、測るときに使った
+            物差しの「逆回転」、つまり符号を反転させた
+            exp(+2πikn/N)を使う。
+
+        1/Nが必要な理由:
+            DFTで「周波数kの物差しと信号が一致しているとき」、
+            Σの結果はN個の同じ向きのベクトルが積み上がった値に
+            なる(ベクトル1個分の大きさの、およそN倍)。IDFTでは、
+            これをもう一度N個の周波数ぶん足し合わせるため、
+            何も調整しないと値がさらにN倍に膨らんでしまう。
+            1/Nを掛けることで、この膨らみを打ち消し、元の信号の
+            大きさに正しく戻す。
 """
 
 import numpy as np
@@ -81,5 +109,41 @@ def dft_1d(signal: np.ndarray) -> np.ndarray:
             total += signal[n] * np.exp(1j * angle)
 
         result[k] = total
+
+    return result
+
+
+def idft_1d(spectrum: np.ndarray) -> np.ndarray:
+    """周波数成分の配列から、元の1次元信号を復元する(素朴なO(N^2)実装)。
+
+    前提条件:
+        spectrumは、dft_1d()が返す形式(長さNの複素数配列)である
+        こと。
+
+    Args:
+        spectrum: 長さNの複素数配列。spectrum[k]が周波数kの成分。
+
+    Returns:
+        長さNの複素数配列(dtype=complex128)。実数信号のDFT結果を
+        渡した場合、理論上は虚部が0になる(丸め誤差でごくわずかな
+        値が残ることはある)。
+    """
+    n_samples = len(spectrum)
+
+    result = np.zeros(n_samples, dtype=np.complex128)
+
+    for n in range(n_samples):
+        # 元の信号x_nを、周波数成分の全項を足し合わせて計算する。
+        total = 0.0 + 0.0j
+        for k in range(n_samples):
+            # dft_1dのangleと符号が逆(+2πkn/N)であることに注意。
+            # DFTで使った物差しの「逆回転」を表す。
+            angle = 2 * np.pi * k * n / n_samples
+            total += spectrum[k] * np.exp(1j * angle)
+
+        # 1/n_samplesで正規化する。DFTで積み上がった分の大きさを
+        # 打ち消し、元の信号の大きさに戻すための係数
+        # (詳しい理由はモジュール冒頭の数学的背景を参照)。
+        result[n] = total / n_samples
 
     return result
