@@ -3,8 +3,8 @@
 
   <text x="20" y="28" font-size="20" font-weight="bold" fill="#111827">画像の1行（横8ピクセル）に対するDFT適用例</text>
 
-  <!-- ===== Section 1: 明暗が1回だけゆっくり変化する行 ===== -->
-  <text x="20" y="76" font-size="15" font-weight="bold" fill="#111827">明暗が1回だけゆっくり変化する行</text>
+  <!-- ===== Section 1: 低周波が主成分、高周波が少し混ざった行 ===== -->
+  <text x="20" y="76" font-size="15" font-weight="bold" fill="#111827">パターンA：低周波（k=1）が主成分、高周波（k=3）が少し混ざった行</text>
 
   <!-- index labels n=0..7 -->
   <text x="55"  y="92" font-size="11" fill="#6b7280" text-anchor="middle">n=0</text>
@@ -18,46 +18,46 @@
 
   <!-- 8 pixels, grayscale fill = brightness value -->
   <rect x="20"  y="102" width="70" height="70" fill="#e4e4e4" stroke="#9ca3af"/>
-  <rect x="96"  y="102" width="70" height="70" fill="#c7c7c7" stroke="#9ca3af"/>
+  <rect x="96"  y="102" width="70" height="70" fill="#aaaaaa" stroke="#9ca3af"/>
   <rect x="172" y="102" width="70" height="70" fill="#808080" stroke="#9ca3af"/>
-  <rect x="248" y="102" width="70" height="70" fill="#393939" stroke="#9ca3af"/>
+  <rect x="248" y="102" width="70" height="70" fill="#565656" stroke="#9ca3af"/>
   <rect x="324" y="102" width="70" height="70" fill="#1c1c1c" stroke="#9ca3af"/>
-  <rect x="400" y="102" width="70" height="70" fill="#393939" stroke="#9ca3af"/>
+  <rect x="400" y="102" width="70" height="70" fill="#565656" stroke="#9ca3af"/>
   <rect x="476" y="102" width="70" height="70" fill="#808080" stroke="#9ca3af"/>
-  <rect x="552" y="102" width="70" height="70" fill="#c7c7c7" stroke="#9ca3af"/>
+  <rect x="552" y="102" width="70" height="70" fill="#aaaaaa" stroke="#9ca3af"/>
 
   <!-- brightness value labels (丸めて表示) -->
   <text x="55"  y="188" font-size="12" fill="#374151" text-anchor="middle">228</text>
-  <text x="131" y="188" font-size="12" fill="#374151" text-anchor="middle">198.7</text>
+  <text x="131" y="188" font-size="12" fill="#374151" text-anchor="middle">170.4</text>
   <text x="207" y="188" font-size="12" fill="#374151" text-anchor="middle">128</text>
-  <text x="283" y="188" font-size="12" fill="#374151" text-anchor="middle">57.3</text>
+  <text x="283" y="188" font-size="12" fill="#374151" text-anchor="middle">85.6</text>
   <text x="359" y="188" font-size="12" fill="#374151" text-anchor="middle">28</text>
-  <text x="435" y="188" font-size="12" fill="#374151" text-anchor="middle">57.3</text>
+  <text x="435" y="188" font-size="12" fill="#374151" text-anchor="middle">85.6</text>
   <text x="511" y="188" font-size="12" fill="#374151" text-anchor="middle">128</text>
-  <text x="587" y="188" font-size="12" fill="#374151" text-anchor="middle">198.7</text>
+  <text x="587" y="188" font-size="12" fill="#374151" text-anchor="middle">170.4</text>
 
   <text x="20" y="212" font-size="13" fill="#374151">この行をDFTにかけると、周波数ごとの振幅 |X_k| はこうなる（k=1〜7。直流成分 k=0=1024 は割愛）</text>
 
   <!-- bar chart baseline -->
   <line x1="14" y1="302" x2="628" y2="302" stroke="#9ca3af" stroke-width="1"/>
 
-  <!-- bars: k=1..7, values [400,0,0,0,0,0,400] -->
-  <rect x="33"  y="232" width="50" height="70" fill="#2563eb"/>
-  <rect x="109" y="299" width="50" height="3"  fill="#d1d5db"/>
-  <rect x="185" y="299" width="50" height="3"  fill="#d1d5db"/>
-  <rect x="261" y="299" width="50" height="3"  fill="#d1d5db"/>
-  <rect x="337" y="299" width="50" height="3"  fill="#d1d5db"/>
-  <rect x="413" y="299" width="50" height="3"  fill="#d1d5db"/>
-  <rect x="489" y="232" width="50" height="70" fill="#2563eb"/>
+  <!-- bars: k=1..7, values [320,0,80,0,80,0,320] (scale: 320 -> height70) -->
+  <rect x="33"  y="232"   width="50" height="70"   fill="#2563eb"/>
+  <rect x="109" y="299"   width="50" height="3"    fill="#d1d5db"/>
+  <rect x="185" y="284.5" width="50" height="17.5"  fill="#2563eb"/>
+  <rect x="261" y="299"   width="50" height="3"    fill="#d1d5db"/>
+  <rect x="337" y="284.5" width="50" height="17.5"  fill="#2563eb"/>
+  <rect x="413" y="299"   width="50" height="3"    fill="#d1d5db"/>
+  <rect x="489" y="232"   width="50" height="70"   fill="#2563eb"/>
 
   <!-- bar value labels -->
-  <text x="58"  y="226" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="bold">400</text>
-  <text x="134" y="293" font-size="11" fill="#9ca3af" text-anchor="middle">0</text>
-  <text x="210" y="293" font-size="11" fill="#9ca3af" text-anchor="middle">0</text>
-  <text x="286" y="293" font-size="11" fill="#9ca3af" text-anchor="middle">0</text>
-  <text x="362" y="293" font-size="11" fill="#9ca3af" text-anchor="middle">0</text>
-  <text x="438" y="293" font-size="11" fill="#9ca3af" text-anchor="middle">0</text>
-  <text x="514" y="226" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="bold">400</text>
+  <text x="58"  y="226"   font-size="11" fill="#2563eb" text-anchor="middle" font-weight="bold">320</text>
+  <text x="134" y="293"   font-size="11" fill="#9ca3af" text-anchor="middle">0</text>
+  <text x="210" y="278.5" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="bold">80</text>
+  <text x="286" y="293"   font-size="11" fill="#9ca3af" text-anchor="middle">0</text>
+  <text x="362" y="278.5" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="bold">80</text>
+  <text x="438" y="293"   font-size="11" fill="#9ca3af" text-anchor="middle">0</text>
+  <text x="514" y="226"   font-size="11" fill="#2563eb" text-anchor="middle" font-weight="bold">320</text>
 
   <!-- k labels -->
   <text x="58"  y="318" font-size="12" fill="#374151" text-anchor="middle">k=1</text>
@@ -69,11 +69,11 @@
   <text x="514" y="318" font-size="12" fill="#374151" text-anchor="middle">k=7</text>
 
   <!-- 結論（グラフの後に明記） -->
-  <text x="20" y="348" font-size="14" font-weight="bold" fill="#2563eb">→ 結論：DFTの結果、k=1 と k=7（鏡映）にピークが現れる</text>
-  <text x="20" y="366" font-size="13" fill="#2563eb">（低周波＝ゆるやかな明暗変化）</text>
+  <text x="20" y="348" font-size="14" font-weight="bold" fill="#2563eb">→ 結論：k=1に大きなピーク(320)、k=3にも小さいが0ではないピーク(80)</text>
+  <text x="20" y="366" font-size="13" fill="#2563eb">（低周波が主成分、高周波が少し混ざる。0になるとは限らない）</text>
 
-  <!-- ===== Section 2: 明暗が3回すばやく変化する行 ===== -->
-  <text x="20" y="410" font-size="15" font-weight="bold" fill="#111827">明暗が3回すばやく変化する行</text>
+  <!-- ===== Section 2: 高周波が主成分、低周波が少し混ざった行 ===== -->
+  <text x="20" y="410" font-size="15" font-weight="bold" fill="#111827">パターンB：高周波（k=3）が主成分、低周波（k=1）が少し混ざった行</text>
 
   <text x="55"  y="426" font-size="11" fill="#6b7280" text-anchor="middle">n=0</text>
   <text x="131" y="426" font-size="11" fill="#6b7280" text-anchor="middle">n=1</text>
@@ -85,43 +85,43 @@
   <text x="587" y="426" font-size="11" fill="#6b7280" text-anchor="middle">n=7</text>
 
   <rect x="20"  y="436" width="70" height="70" fill="#e4e4e4" stroke="#9ca3af"/>
-  <rect x="96"  y="436" width="70" height="70" fill="#393939" stroke="#9ca3af"/>
+  <rect x="96"  y="436" width="70" height="70" fill="#565656" stroke="#9ca3af"/>
   <rect x="172" y="436" width="70" height="70" fill="#808080" stroke="#9ca3af"/>
-  <rect x="248" y="436" width="70" height="70" fill="#c7c7c7" stroke="#9ca3af"/>
+  <rect x="248" y="436" width="70" height="70" fill="#aaaaaa" stroke="#9ca3af"/>
   <rect x="324" y="436" width="70" height="70" fill="#1c1c1c" stroke="#9ca3af"/>
-  <rect x="400" y="436" width="70" height="70" fill="#c7c7c7" stroke="#9ca3af"/>
+  <rect x="400" y="436" width="70" height="70" fill="#aaaaaa" stroke="#9ca3af"/>
   <rect x="476" y="436" width="70" height="70" fill="#808080" stroke="#9ca3af"/>
-  <rect x="552" y="436" width="70" height="70" fill="#393939" stroke="#9ca3af"/>
+  <rect x="552" y="436" width="70" height="70" fill="#565656" stroke="#9ca3af"/>
 
   <text x="55"  y="522" font-size="12" fill="#374151" text-anchor="middle">228</text>
-  <text x="131" y="522" font-size="12" fill="#374151" text-anchor="middle">57.3</text>
+  <text x="131" y="522" font-size="12" fill="#374151" text-anchor="middle">85.6</text>
   <text x="207" y="522" font-size="12" fill="#374151" text-anchor="middle">128</text>
-  <text x="283" y="522" font-size="12" fill="#374151" text-anchor="middle">198.7</text>
+  <text x="283" y="522" font-size="12" fill="#374151" text-anchor="middle">170.4</text>
   <text x="359" y="522" font-size="12" fill="#374151" text-anchor="middle">28</text>
-  <text x="435" y="522" font-size="12" fill="#374151" text-anchor="middle">198.7</text>
+  <text x="435" y="522" font-size="12" fill="#374151" text-anchor="middle">170.4</text>
   <text x="511" y="522" font-size="12" fill="#374151" text-anchor="middle">128</text>
-  <text x="587" y="522" font-size="12" fill="#374151" text-anchor="middle">57.3</text>
+  <text x="587" y="522" font-size="12" fill="#374151" text-anchor="middle">85.6</text>
 
   <text x="20" y="546" font-size="13" fill="#374151">この行をDFTにかけると、周波数ごとの振幅 |X_k| はこうなる（k=1〜7。直流成分 k=0=1024 は割愛）</text>
 
   <line x1="14" y1="636" x2="628" y2="636" stroke="#9ca3af" stroke-width="1"/>
 
-  <!-- bars: k=1..7, values [0,0,400,0,400,0,0] -->
-  <rect x="33"  y="633" width="50" height="3"  fill="#d1d5db"/>
-  <rect x="109" y="633" width="50" height="3"  fill="#d1d5db"/>
-  <rect x="185" y="566" width="50" height="70" fill="#2563eb"/>
-  <rect x="261" y="633" width="50" height="3"  fill="#d1d5db"/>
-  <rect x="337" y="566" width="50" height="70" fill="#2563eb"/>
-  <rect x="413" y="633" width="50" height="3"  fill="#d1d5db"/>
-  <rect x="489" y="633" width="50" height="3"  fill="#d1d5db"/>
+  <!-- bars: k=1..7, values [80,0,320,0,320,0,80] (scale: 320 -> height70, baseline y=636) -->
+  <rect x="33"  y="618.5" width="50" height="17.5" fill="#2563eb"/>
+  <rect x="109" y="633"   width="50" height="3"    fill="#d1d5db"/>
+  <rect x="185" y="566"   width="50" height="70"   fill="#2563eb"/>
+  <rect x="261" y="633"   width="50" height="3"    fill="#d1d5db"/>
+  <rect x="337" y="566"   width="50" height="70"   fill="#2563eb"/>
+  <rect x="413" y="633"   width="50" height="3"    fill="#d1d5db"/>
+  <rect x="489" y="618.5" width="50" height="17.5" fill="#2563eb"/>
 
-  <text x="58"  y="627" font-size="11" fill="#9ca3af" text-anchor="middle">0</text>
-  <text x="134" y="627" font-size="11" fill="#9ca3af" text-anchor="middle">0</text>
-  <text x="210" y="560" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="bold">400</text>
-  <text x="286" y="627" font-size="11" fill="#9ca3af" text-anchor="middle">0</text>
-  <text x="362" y="560" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="bold">400</text>
-  <text x="438" y="627" font-size="11" fill="#9ca3af" text-anchor="middle">0</text>
-  <text x="514" y="627" font-size="11" fill="#9ca3af" text-anchor="middle">0</text>
+  <text x="58"  y="612.5" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="bold">80</text>
+  <text x="134" y="627"   font-size="11" fill="#9ca3af" text-anchor="middle">0</text>
+  <text x="210" y="560"   font-size="11" fill="#2563eb" text-anchor="middle" font-weight="bold">320</text>
+  <text x="286" y="627"   font-size="11" fill="#9ca3af" text-anchor="middle">0</text>
+  <text x="362" y="560"   font-size="11" fill="#2563eb" text-anchor="middle" font-weight="bold">320</text>
+  <text x="438" y="627"   font-size="11" fill="#9ca3af" text-anchor="middle">0</text>
+  <text x="514" y="612.5" font-size="11" fill="#2563eb" text-anchor="middle" font-weight="bold">80</text>
 
   <text x="58"  y="652" font-size="12" fill="#374151" text-anchor="middle">k=1</text>
   <text x="134" y="652" font-size="12" fill="#374151" text-anchor="middle">k=2</text>
@@ -132,6 +132,6 @@
   <text x="514" y="652" font-size="12" fill="#374151" text-anchor="middle">k=7</text>
 
   <!-- 結論（グラフの後に明記） -->
-  <text x="20" y="682" font-size="14" font-weight="bold" fill="#2563eb">→ 結論：DFTの結果、k=3 と k=5（鏡映）にピークが現れる</text>
-  <text x="20" y="700" font-size="13" fill="#2563eb">（高周波＝激しく振動する変化）</text>
+  <text x="20" y="682" font-size="14" font-weight="bold" fill="#2563eb">→ 結論：k=3に大きなピーク(320)、k=1にも小さいが0ではないピーク(80)</text>
+  <text x="20" y="700" font-size="13" fill="#2563eb">（高周波が主成分、低周波が少し混ざる。0になるとは限らない）</text>
 </svg>
