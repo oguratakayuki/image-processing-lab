@@ -64,6 +64,31 @@
             何も調整しないと値がさらにN倍に膨らんでしまう。
             1/Nを掛けることで、この膨らみを打ち消し、元の信号の
             大きさに正しく戻す。
+
+    2次元DFTの定義:
+        画像のような2次元配列 f(y, x)(高さH、幅W)に対して、
+
+            F(v, u) = Σ_{y=0}^{H-1} Σ_{x=0}^{W-1}
+                        f(y, x)・exp(-2πi・(v・y/H + u・x/W))
+
+        で定義される。fの行方向(横、x方向)の変化を周波数u、
+        列方向(縦、y方向)の変化を周波数vとして、同時に数値化する。
+
+        分離可能性(なぜ1次元DFTを2回で計算できるのか):
+            上の定義式のΣは、xについての和とyについての和に
+            分解できる。
+
+                F(v, u) = Σ_y exp(-2πi・v・y/H)・
+                            [ Σ_x f(y, x)・exp(-2πi・u・x/W) ]
+
+            内側の[...]は、各行yについて横方向(x方向)だけに
+            かけた1次元DFT(dft_1dそのもの)。外側のΣは、その
+            結果の各列について縦方向(y方向)だけにかけた1次元DFT。
+            つまり2次元DFTは、「各行に1次元DFTをかけ、次に各列に
+            1次元DFTをかける」という2段階の処理で計算できる
+            (2-2のガウシアンカーネルの分離可能性と同じ発想)。
+            素朴に2次元の定義式をそのまま2重Σで計算すると
+            O(H²W²)になるが、分離すればO(HW(H+W))で済む。
 """
 
 import numpy as np
@@ -145,5 +170,44 @@ def idft_1d(spectrum: np.ndarray) -> np.ndarray:
         # 打ち消し、元の信号の大きさに戻すための係数
         # (詳しい理由はモジュール冒頭の数学的背景を参照)。
         result[n] = total / n_samples
+
+    return result
+
+
+def dft_2d(image: np.ndarray) -> np.ndarray:
+    """2次元配列(画像など)の離散フーリエ変換を計算する。
+
+    分離可能性(モジュール冒頭の数学的背景を参照)を利用し、
+    「各行に1次元DFTをかけ、次に各列に1次元DFTをかける」という
+    2段階の処理で計算する(dft_1dを2回使うだけで、2重Σの素朴な
+    実装を新たに書く必要がない)。
+
+    前提条件:
+        imageは2次元の数値配列(グレースケール画像の輝度値など)
+        であること(実数・複素数どちらでもよい)。
+
+    Args:
+        image: 形状(H, W)の2次元配列(Hが高さ=行数、Wが幅=列数)。
+
+    Returns:
+        形状(H, W)の複素数配列(dtype=complex128)。
+        result[v, u]が、縦方向の周波数v・横方向の周波数uの成分。
+    """
+    height, width = image.shape
+
+    # 第1段階: 各行(横方向、x方向)に1次元DFTをかける。
+    # image[y, :] は「y行目の全列」を取り出すNumPyのスライス構文
+    # (Ruby/PHPの配列には無い書き方。先頭のyが行、:が「列は全部」
+    # という意味)。
+    rows_transformed = np.zeros((height, width), dtype=np.complex128)
+    for y in range(height):
+        rows_transformed[y, :] = dft_1d(image[y, :])
+
+    # 第2段階: 第1段階の結果の各列(縦方向、y方向)に1次元DFTを
+    # かける。rows_transformed[:, x] は「x列目の全行」を取り出す
+    # スライス構文(先頭の:が「行は全部」、xが列という意味)。
+    result = np.zeros((height, width), dtype=np.complex128)
+    for x in range(width):
+        result[:, x] = dft_1d(rows_transformed[:, x])
 
     return result
