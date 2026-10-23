@@ -89,6 +89,30 @@
             (2-2のガウシアンカーネルの分離可能性と同じ発想)。
             素朴に2次元の定義式をそのまま2重Σで計算すると
             O(H²W²)になるが、分離すればO(HW(H+W))で済む。
+
+    2次元IDFTの定義:
+        2次元DFTで求めた周波数成分F(v, u)から、元の画像f(y, x)を
+        復元する変換。
+
+            f(y, x) = (1/(HW))・Σ_{v=0}^{H-1} Σ_{u=0}^{W-1}
+                        F(v, u)・exp(+2πi・(v・y/H + u・x/W))
+
+        1次元のIDFTと同じく、2次元DFTの定義式と比べて指数の符号が
+        `-`から`+`に反転し、正規化係数`1/(HW)`が付く。
+
+        1次元IDFTを2回適用するだけで済む理由:
+            2次元DFTが分離できたのと同じ理由で、2次元IDFTの式も
+            uについての和とvについての和に分解できる。
+
+                f(y, x) = (1/H)・Σ_v exp(+2πi・v・y/H)・
+                            [ (1/W)・Σ_u F(v, u)・exp(+2πi・u・x/W) ]
+
+            内側の[...]は、各行vについて横方向(u方向)にかけた
+            1次元IDFT(idft_1dそのもの、1/Wの正規化も含む)。外側の
+            Σは、その結果の各列について縦方向(v方向)にかけた
+            1次元IDFT(1/Hの正規化も含む)。idft_1dを2段階で呼び出す
+            だけで、1/Wと1/Hの正規化が自動的に掛け合わされ、
+            正しい1/(HW)になる。
 """
 
 import numpy as np
@@ -209,5 +233,43 @@ def dft_2d(image: np.ndarray) -> np.ndarray:
     result = np.zeros((height, width), dtype=np.complex128)
     for x in range(width):
         result[:, x] = dft_1d(rows_transformed[:, x])
+
+    return result
+
+
+def idft_2d(spectrum: np.ndarray) -> np.ndarray:
+    """2次元の周波数成分の配列から、元の2次元配列(画像など)を復元する。
+
+    dft_2dと同じく分離可能性(モジュール冒頭の数学的背景を参照)を
+    利用し、「各行に1次元IDFTをかけ、次に各列に1次元IDFTをかける」
+    という2段階の処理で計算する(idft_1dを2回使うだけでよく、
+    1/(HW)の正規化もidft_1dの1/Wと1/Hがそのまま掛け合わさって
+    自動的に正しい値になる)。
+
+    前提条件:
+        spectrumは、dft_2d()が返す形式(形状(H, W)の複素数配列)で
+        あること。
+
+    Args:
+        spectrum: 形状(H, W)の複素数配列。spectrum[v, u]が、縦方向の
+            周波数v・横方向の周波数uの成分。
+
+    Returns:
+        形状(H, W)の複素数配列(dtype=complex128)。実数画像のDFT
+        結果を渡した場合、理論上は虚部が0になる(丸め誤差でごく
+        わずかな値が残ることはある)。
+    """
+    height, width = spectrum.shape
+
+    # 第1段階: 各行(横方向、u方向)に1次元IDFTをかける。
+    rows_transformed = np.zeros((height, width), dtype=np.complex128)
+    for y in range(height):
+        rows_transformed[y, :] = idft_1d(spectrum[y, :])
+
+    # 第2段階: 第1段階の結果の各列(縦方向、v方向)に1次元IDFTを
+    # かける。
+    result = np.zeros((height, width), dtype=np.complex128)
+    for x in range(width):
+        result[:, x] = idft_1d(rows_transformed[:, x])
 
     return result
