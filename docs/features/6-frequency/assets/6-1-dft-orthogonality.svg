@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2240" height="2360" viewBox="0 0 560 590" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="560" height="590" fill="#ffffff"/>
+
+  <text x="20" y="28" font-size="17" font-weight="bold" fill="#111827">直交性の視覚化：Σ exp(i・2π・a・n/N) の経路（N=8）</text>
+  <text x="20" y="48" font-size="12" fill="#6b7280">単位ベクトル exp(i・2π・a・n/8) を n=0から7まで鎖のようにつなぎ、合計がどこに着地するか見る</text>
+
+  <!-- ===== Panel A: a=0 ===== -->
+  <text x="20" y="78" font-size="15" font-weight="bold" fill="#111827">a=0（全ベクトルが同じ向き）</text>
+
+  <line x1="60"  y1="150" x2="380" y2="150" stroke="#9ca3af" stroke-width="1"/>
+  <line x1="90"  y1="110" x2="90"  y2="190" stroke="#9ca3af" stroke-width="1"/>
+  <text x="385" y="154" font-size="11" fill="#6b7280">Re</text>
+  <text x="94"  y="116" font-size="11" fill="#6b7280">Im</text>
+
+  <line x1="90.0" y1="150.0" x2="114.0" y2="150.0" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="118.0" y1="150.0" x2="142.0" y2="150.0" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="146.0" y1="150.0" x2="170.0" y2="150.0" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="174.0" y1="150.0" x2="198.0" y2="150.0" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="202.0" y1="150.0" x2="226.0" y2="150.0" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="230.0" y1="150.0" x2="254.0" y2="150.0" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="258.0" y1="150.0" x2="282.0" y2="150.0" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="286.0" y1="150.0" x2="310.0" y2="150.0" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <text x="90"  y="172" font-size="11" fill="#2563eb" text-anchor="middle">n=0 出発点(原点)</text>
+  <circle cx="314" cy="150" r="5" fill="#2563eb"/>
+  <text x="322" y="146" font-size="13" font-weight="bold" fill="#2563eb">合計=8</text>
+
+  <text x="20" y="205" font-size="13" font-weight="bold" fill="#2563eb">→ 8本のベクトルが全て同じ方向(角度0)を向き、一直線に積み上がる</text>
+  <text x="20" y="223" font-size="13" font-weight="bold" fill="#2563eb">→ 合計=8（Nそのもの）</text>
+
+  <!-- ===== Panel B: a=1 ===== -->
+  <text x="20" y="268" font-size="15" font-weight="bold" fill="#111827">a=1（ベクトルが均等に8方向を向く）</text>
+
+  <line x1="110" y1="470" x2="380" y2="470" stroke="#9ca3af" stroke-width="1"/>
+  <line x1="190" y1="295" x2="190" y2="495" stroke="#9ca3af" stroke-width="1"/>
+  <text x="385" y="474" font-size="11" fill="#6b7280">Re</text>
+  <text x="194" y="301" font-size="11" fill="#6b7280">Im</text>
+
+  <line x1="190.0" y1="470.0" x2="251.0" y2="470.0" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="255.0" y1="470.0" x2="298.1" y2="426.9" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="301.0" y1="424.0" x2="301.0" y2="363.0" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="301.0" y1="359.0" x2="257.8" y2="315.9" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="255.0" y1="313.1" x2="194.0" y2="313.1" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="190.0" y1="313.1" x2="146.9" y2="356.2" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="144.0" y1="359.0" x2="144.0" y2="420.0" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="144.0" y1="424.0" x2="187.2" y2="467.2" stroke="#2563eb" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <text x="190" y="488" font-size="11" fill="#2563eb" text-anchor="middle">n=0 出発点(原点)</text>
+  <circle cx="190" cy="470" r="7" fill="none" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="205" y="432" font-size="12" font-weight="bold" fill="#dc2626">n=8も同じ点に戻る</text>
+
+  <text x="20" y="515" font-size="13" font-weight="bold" fill="#2563eb">→ 8本のベクトルが均等に8方向を向き、正八角形を描いて出発点にぴったり戻る</text>
+  <text x="20" y="533" font-size="13" font-weight="bold" fill="#2563eb">→ 合計=0</text>
+
+  <text x="20" y="560" font-size="12" fill="#374151">（N=8のとき、aが8の倍数なら合計はN、それ以外のaなら常に0になる。下の表で全aを確認済み）</text>
+</svg>
