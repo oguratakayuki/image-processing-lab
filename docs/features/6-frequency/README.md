@@ -13,8 +13,9 @@
 | [6-3](6-3-dft-2d.md) | 離散フーリエ変換（2次元, 2D DFT） | 1次元DFTを画像に拡張する。分離可能性により、1次元DFTを2段階で適用するだけで計算できる |
 | [6-4](6-4-idft-2d.md) | 逆離散フーリエ変換（2次元, 2D IDFT） | 周波数成分から元の画像を復元する。DFT→IDFTの往復で元に戻ることを確認する |
 | [6-5](6-5-spectrum-visualization.md) | 周波数領域の可視化（振幅スペクトラム表示） | 複素数の周波数成分を、振幅・対数スケール・中心シフトを経て1枚の画像として見える形にする |
+| [6-6](6-6-fft.md) | 高速フーリエ変換（1次元, FFT） | DFTと全く同じ結果を、分割統治法で`O(N²)`から`O(N log N)`まで高速化する |
 
-今後、高速フーリエ変換（FFT）、畳み込み定理の実証へと進む予定。画像に対するWeb UI（`/lab/frequency`）も、今後の回で追加する。
+今後、畳み込み定理の実証へと進む予定。画像に対するWeb UI（`/lab/frequency`）も、今後の回で追加する。
 
 ## 数学的な見どころ
 
@@ -22,8 +23,9 @@
 - **複素指数関数とオイラーの公式**：`exp(iθ) = cos(θ) + i・sin(θ)`により、cos成分とsin成分を1つの複素数にまとめて扱える。[6-1](6-1-dft.md)で複素数が初めて本格的に登場する
 - **畳み込み定理への伏線**：[2-1](../2-convolution/2-1-convolution.md)で触れた「空間領域の畳み込み＝周波数領域の掛け算」という関係を、DFTを使って実際に確認する（今後のトピック）
 - **順変換と逆変換の対称性**：[6-2](6-2-idft.md)のIDFTは、DFTの定義式の符号を反転し`1/N`を掛けるだけという、驚くほど似た形をしている。この対称性が「DFT→IDFTで元に戻る」ことの土台になっている
+- **分割統治法による高速化**：[6-6](6-6-fft.md)のFFTは、DFTを半分の大きさの2つのDFTに分解できるという性質を再帰的に使い、計算量を`O(N²)`から`O(N log N)`まで減らす
 
 ## 実装
 
-- Engine: `engine/src/imglab_engine/frequency/dft.py`・`engine/src/imglab_engine/frequency/spectrum.py`
-- API/Web：[6-1](6-1-dft.md)〜[6-5](6-5-spectrum-visualization.md)は、いずれも抽象的な数値配列（1次元信号・2次元配列）を扱う関数の実装にとどまり、画像アップロードを前提とするこれまでのAPI/Web構成とは馴染まないため、今回は未実装。[6-5](6-5-spectrum-visualization.md)で振幅スペクトラムを計算する関数自体はできたが、実際に画像をアップロードしてスペクトラム画像を表示するWeb UI（`/lab/frequency`）は、今後`api/app/routers/frequency.py`・`web/src/app/lab/frequency/page.tsx`として追加する予定。
+- Engine: `engine/src/imglab_engine/frequency/dft.py`・`engine/src/imglab_engine/frequency/spectrum.py`・`engine/src/imglab_engine/frequency/fft.py`
+- API/Web：[6-1](6-1-dft.md)〜[6-6](6-6-fft.md)は、いずれも抽象的な数値配列（1次元信号・2次元配列）を扱う関数の実装にとどまり、画像アップロードを前提とするこれまでのAPI/Web構成とは馴染まないため、今回は未実装。[6-5](6-5-spectrum-visualization.md)で振幅スペクトラムを計算する関数自体はできたが、実際に画像をアップロードしてスペクトラム画像を表示するWeb UI（`/lab/frequency`）は、今後`api/app/routers/frequency.py`・`web/src/app/lab/frequency/page.tsx`として追加する予定。
