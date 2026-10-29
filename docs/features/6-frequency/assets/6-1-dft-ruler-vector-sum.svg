@@ -35,8 +35,8 @@
   <circle cx="374" cy="160" r="5" fill="#2563eb"/>
   <text x="382" y="157" font-size="13" font-weight="bold" fill="#2563eb">X_0 = 8.0</text>
 
-  <text x="20" y="215" font-size="13" font-weight="bold" fill="#2563eb">→ 結論：8本全てのベクトルが寸分違わず同じ方向(実軸の正方向)を向く</text>
-  <text x="20" y="233" font-size="13" font-weight="bold" fill="#2563eb">→ 一直線に最大まで積み上がり、X_0 = 8.0（信号の値×Nに一致）</text>
+  <text x="20" y="215" font-size="13" font-weight="bold" fill="#2563eb">→ 結論：信号が変わらないため、物差しも回転せず全ベクトルが同じ方向を向く</text>
+  <text x="20" y="233" font-size="13" font-weight="bold" fill="#2563eb">→ 一直線に積み上がりX_0=8.0（最大値）。k=1以降は全て0、値はk=0に集中する</text>
 
   <!-- ===== Panel 1: k=1（主成分と一致する物差し） ===== -->
   <text x="20" y="274" font-size="15" font-weight="bold" fill="#111827">k=1（信号の主成分と一致する物差し）</text>
