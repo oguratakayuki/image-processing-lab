@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2720" height="1680" viewBox="0 0 680 420" font-family="Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="680" height="420" fill="#ffffff"/>
+
+  <text x="20" y="24" font-size="16" font-weight="bold" fill="#111827">計算量の比較：N² と N log₂N（縦軸は対数スケール）</text>
+  <text x="20" y="40" font-size="11" fill="#6b7280">縦軸の目盛りは10倍ごと（1目盛り上がる＝実際の値は10倍）。素朴なDFTはN²、FFTはN log₂Nの計算量</text>
+
+  <!-- Y軸グリッド線とラベル -->
+  <line x1="90" y1="350.0" x2="630" y2="350.0" stroke="#d1d5db" stroke-width="1"/>
+  <line x1="90" y1="311.2" x2="630" y2="311.2" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="90" y1="272.5" x2="630" y2="272.5" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="90" y1="233.8" x2="630" y2="233.8" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="90" y1="195.0" x2="630" y2="195.0" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="90" y1="156.2" x2="630" y2="156.2" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="90" y1="117.5" x2="630" y2="117.5" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="90" y1="78.8"  x2="630" y2="78.8"  stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="90" y1="40.0"  x2="630" y2="40.0"  stroke="#e5e7eb" stroke-width="1"/>
+
+  <text x="85" y="353" font-size="10" fill="#9ca3af" text-anchor="end">10⁰</text>
+  <text x="85" y="275" font-size="10" fill="#9ca3af" text-anchor="end">10²</text>
+  <text x="85" y="198" font-size="10" fill="#9ca3af" text-anchor="end">10⁴</text>
+  <text x="85" y="120" font-size="10" fill="#9ca3af" text-anchor="end">10⁶</text>
+  <text x="85" y="43"  font-size="10" fill="#9ca3af" text-anchor="end">10⁸</text>
+
+  <!-- X軸 -->
+  <line x1="90" y1="350" x2="630" y2="350" stroke="#374151" stroke-width="1.5"/>
+  <text x="90"  y="368" font-size="10" fill="#6b7280" text-anchor="middle">8</text>
+  <text x="144" y="368" font-size="10" fill="#6b7280" text-anchor="middle">16</text>
+  <text x="198" y="368" font-size="10" fill="#6b7280" text-anchor="middle">32</text>
+  <text x="252" y="368" font-size="10" fill="#6b7280" text-anchor="middle">64</text>
+  <text x="306" y="368" font-size="10" fill="#6b7280" text-anchor="middle">128</text>
+  <text x="360" y="368" font-size="10" fill="#6b7280" text-anchor="middle">256</text>
+  <text x="414" y="368" font-size="10" fill="#6b7280" text-anchor="middle">512</text>
+  <text x="468" y="368" font-size="10" fill="#6b7280" text-anchor="middle">1024</text>
+  <text x="522" y="368" font-size="10" fill="#6b7280" text-anchor="middle">2048</text>
+  <text x="576" y="368" font-size="10" fill="#6b7280" text-anchor="middle">4096</text>
+  <text x="630" y="368" font-size="10" fill="#6b7280" text-anchor="middle">8192</text>
+  <text x="630" y="388" font-size="11" fill="#374151" text-anchor="end">N（信号の長さ）</text>
+
+  <!-- N^2 の折れ線 -->
+  <polyline points="90.0,280.0 144.0,256.7 198.0,233.4 252.0,210.0 306.0,186.7 360.0,163.4 414.0,140.0 468.0,116.7 522.0,93.4 576.0,70.0 630.0,46.7"
+            fill="none" stroke="#2563eb" stroke-width="2.5"/>
+  <circle cx="630.0" cy="46.7" r="4" fill="#2563eb"/>
+  <text x="560" y="60" font-size="12" font-weight="bold" fill="#2563eb">N²（素朴なDFT）</text>
+
+  <!-- N log2 N の折れ線 -->
+  <polyline points="90.0,296.5 144.0,280.0 198.0,264.6 252.0,249.9 306.0,235.6 360.0,221.7 414.0,208.0 468.0,194.6 522.0,181.3 576.0,168.2 630.0,155.2"
+            fill="none" stroke="#ea580c" stroke-width="2.5"/>
+  <circle cx="630.0" cy="155.2" r="4" fill="#ea580c"/>
+  <text x="560" y="180" font-size="12" font-weight="bold" fill="#ea580c">N log₂N（FFT）</text>
+
+  <!-- N=8192での実測値の注記 -->
+  <text x="20" y="405" font-size="11" fill="#374151">N=8192のとき：N²=67,108,864回　対　N log₂N=106,496回（約630倍の差）</text>
+</svg>
