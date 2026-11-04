@@ -91,7 +91,7 @@ def fft_1d(signal: np.ndarray) -> np.ndarray:
 2. **`if n_samples == 1: return signal.copy()`**：再帰の終了条件。長さ`1`の信号のDFTは、和が1項しかないため信号自身になる。
 3. **`signal[0::2]`・`signal[1::2]`**：NumPyのスライス構文`開始:終了:ステップ`で、`2`つおきに要素を取り出す（Ruby/PHPには無い書き方）。`[0::2]`は`0`番目から`2`つおき（偶数番目）、`[1::2]`は`1`番目から`2`つおき（奇数番目）。
 4. **`even_part = fft_1d(signal[0::2])`・`odd_part = fft_1d(signal[1::2])`**：半分の長さの信号に対して、`fft_1d`自身をもう一度呼び出す（再帰呼び出し）。
-5. **`angle = -2 * np.pi * k / n_samples`**：数学的背景の式`exp(-2πik/N)`の角度部分（「回転係数」と呼ばれる）。
+5. **`angle = -2 * np.pi * k / n_samples`**：数学的背景の式`exp(-2πik/N)`の角度部分（「**回転因子**」、英語では**Twiddle Factor**と呼ばれる）。
 6. **`result[k] = even_part[k] + twiddle`・`result[k + half] = even_part[k] - twiddle`**：バタフライ演算そのもの。同じ`even_part[k]`・`twiddle`から、足し算と引き算だけで2つの出力`X_k`・`X_{k+N/2}`を同時に計算している。
 
 ## 具体的な計算例

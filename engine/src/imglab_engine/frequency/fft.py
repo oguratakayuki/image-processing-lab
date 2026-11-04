@@ -85,12 +85,12 @@ def fft_1d(signal: np.ndarray) -> np.ndarray:
 
     for k in range(half):
         # モジュール冒頭の数学的背景にある exp(-2πik/N) の部分
-        # (「twiddle factor」と呼ばれる、回転させるための係数)。
+        # (「回転因子」、英語ではTwiddle Factorと呼ばれる係数)。
         angle = -2 * np.pi * k / n_samples
         twiddle = np.exp(1j * angle) * odd_part[k]
 
         # X_k = E_k + twiddle,  X_{k+N/2} = E_k - twiddle
-        # 奇数番目のDFT結果に回転係数を掛けたものを、偶数番目の
+        # 奇数番目のDFT結果に回転因子を掛けたものを、偶数番目の
         # DFT結果に足す・引くだけで、2つのX_kが同時に求まる
         # (「バタフライ演算」と呼ばれる)。
         result[k] = even_part[k] + twiddle
