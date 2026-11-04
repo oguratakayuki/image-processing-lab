@@ -75,6 +75,11 @@ def fft_1d(signal: np.ndarray) -> np.ndarray:
     even_part = fft_1d(signal[0::2])
     odd_part = fft_1d(signal[1::2])
 
+    # //は「切り捨て除算」演算子(整数の割り算の商だけを取り、小数部分を
+    # 切り捨てる)。n_samplesは必ず2の累乗(前提条件により偶数)なので、
+    # 結果は割り切れて整数になる。Ruby/PHPの/はそのままだと浮動小数点の
+    # 結果になりうるが、Pythonでは/が常に浮動小数点、//が整数除算、と
+    # 演算子自体が分かれている。
     half = n_samples // 2
     result = np.zeros(n_samples, dtype=np.complex128)
 
