@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2720" height="1520" viewBox="0 0 680 380" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/></marker>
+    <marker id="arrowOrange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#ea580c"/></marker>
+    <marker id="arrowGray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#9ca3af"/></marker>
+  </defs>
+  <rect x="0" y="0" width="680" height="380" fill="#ffffff"/>
+  <text x="20" y="28" font-size="16" font-weight="bold" fill="#111827" text-anchor="start">長さN=8の信号を、偶数番目と奇数番目に分ける</text>
+  <text x="20" y="48" font-size="12" fill="#6b7280" text-anchor="start">どちらの部分信号も、番号 m=0,1,2,3 を付け直して「長さN/2=4の独立した信号」として扱う</text>
+  <text x="20" y="92" font-size="11" fill="#6b7280" text-anchor="start">位置 n</text>
+  <text x="20" y="122" font-size="13" font-weight="bold" fill="#111827" text-anchor="start">元の信号</text>
+  <text x="216.0" y="92" font-size="11" fill="#6b7280" text-anchor="middle">0</text>
+  <rect x="190" y="100" width="52" height="34" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+  <text x="216.0" y="122" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">x_0</text>
+  <text x="274.0" y="92" font-size="11" fill="#6b7280" text-anchor="middle">1</text>
+  <rect x="248" y="100" width="52" height="34" rx="4" fill="#ffffff" stroke="#ea580c" stroke-width="2"/>
+  <text x="274.0" y="122" font-size="13" font-weight="bold" fill="#ea580c" text-anchor="middle">x_1</text>
+  <text x="332.0" y="92" font-size="11" fill="#6b7280" text-anchor="middle">2</text>
+  <rect x="306" y="100" width="52" height="34" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+  <text x="332.0" y="122" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">x_2</text>
+  <text x="390.0" y="92" font-size="11" fill="#6b7280" text-anchor="middle">3</text>
+  <rect x="364" y="100" width="52" height="34" rx="4" fill="#ffffff" stroke="#ea580c" stroke-width="2"/>
+  <text x="390.0" y="122" font-size="13" font-weight="bold" fill="#ea580c" text-anchor="middle">x_3</text>
+  <text x="448.0" y="92" font-size="11" fill="#6b7280" text-anchor="middle">4</text>
+  <rect x="422" y="100" width="52" height="34" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+  <text x="448.0" y="122" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">x_4</text>
+  <text x="506.0" y="92" font-size="11" fill="#6b7280" text-anchor="middle">5</text>
+  <rect x="480" y="100" width="52" height="34" rx="4" fill="#ffffff" stroke="#ea580c" stroke-width="2"/>
+  <text x="506.0" y="122" font-size="13" font-weight="bold" fill="#ea580c" text-anchor="middle">x_5</text>
+  <text x="564.0" y="92" font-size="11" fill="#6b7280" text-anchor="middle">6</text>
+  <rect x="538" y="100" width="52" height="34" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+  <text x="564.0" y="122" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">x_6</text>
+  <text x="622.0" y="92" font-size="11" fill="#6b7280" text-anchor="middle">7</text>
+  <rect x="596" y="100" width="52" height="34" rx="4" fill="#ffffff" stroke="#ea580c" stroke-width="2"/>
+  <text x="622.0" y="122" font-size="13" font-weight="bold" fill="#ea580c" text-anchor="middle">x_7</text>
+  <text x="20" y="204" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="start">偶数番目</text>
+  <text x="20" y="220" font-size="12" font-weight="bold" fill="#2563eb" text-anchor="start">x_{2m} → E_k</text>
+  <line x1="216.0" y1="136" x2="216.0" y2="187" stroke="#2563eb" stroke-width="1.2" stroke-opacity="0.6" marker-end="url(#arrowBlue)"/>
+  <rect x="190" y="190" width="52" height="34" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+  <text x="216.0" y="212" font-size="12" font-weight="bold" fill="#2563eb" text-anchor="middle">m=0</text>
+  <line x1="332.0" y1="136" x2="332.0" y2="187" stroke="#2563eb" stroke-width="1.2" stroke-opacity="0.6" marker-end="url(#arrowBlue)"/>
+  <rect x="306" y="190" width="52" height="34" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+  <text x="332.0" y="212" font-size="12" font-weight="bold" fill="#2563eb" text-anchor="middle">m=1</text>
+  <line x1="448.0" y1="136" x2="448.0" y2="187" stroke="#2563eb" stroke-width="1.2" stroke-opacity="0.6" marker-end="url(#arrowBlue)"/>
+  <rect x="422" y="190" width="52" height="34" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+  <text x="448.0" y="212" font-size="12" font-weight="bold" fill="#2563eb" text-anchor="middle">m=2</text>
+  <line x1="564.0" y1="136" x2="564.0" y2="187" stroke="#2563eb" stroke-width="1.2" stroke-opacity="0.6" marker-end="url(#arrowBlue)"/>
+  <rect x="538" y="190" width="52" height="34" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+  <text x="564.0" y="212" font-size="12" font-weight="bold" fill="#2563eb" text-anchor="middle">m=3</text>
+  <text x="20" y="284" font-size="13" font-weight="bold" fill="#ea580c" text-anchor="start">奇数番目</text>
+  <text x="20" y="300" font-size="12" font-weight="bold" fill="#ea580c" text-anchor="start">x_{2m+1} → O_k</text>
+  <line x1="274.0" y1="136" x2="274.0" y2="267" stroke="#ea580c" stroke-width="1.2" stroke-opacity="0.6" marker-end="url(#arrowOrange)"/>
+  <rect x="248" y="270" width="52" height="34" rx="4" fill="#ffffff" stroke="#ea580c" stroke-width="2"/>
+  <text x="274.0" y="292" font-size="12" font-weight="bold" fill="#ea580c" text-anchor="middle">m=0</text>
+  <line x1="390.0" y1="136" x2="390.0" y2="267" stroke="#ea580c" stroke-width="1.2" stroke-opacity="0.6" marker-end="url(#arrowOrange)"/>
+  <rect x="364" y="270" width="52" height="34" rx="4" fill="#ffffff" stroke="#ea580c" stroke-width="2"/>
+  <text x="390.0" y="292" font-size="12" font-weight="bold" fill="#ea580c" text-anchor="middle">m=1</text>
+  <line x1="506.0" y1="136" x2="506.0" y2="267" stroke="#ea580c" stroke-width="1.2" stroke-opacity="0.6" marker-end="url(#arrowOrange)"/>
+  <rect x="480" y="270" width="52" height="34" rx="4" fill="#ffffff" stroke="#ea580c" stroke-width="2"/>
+  <text x="506.0" y="292" font-size="12" font-weight="bold" fill="#ea580c" text-anchor="middle">m=2</text>
+  <line x1="622.0" y1="136" x2="622.0" y2="267" stroke="#ea580c" stroke-width="1.2" stroke-opacity="0.6" marker-end="url(#arrowOrange)"/>
+  <rect x="596" y="270" width="52" height="34" rx="4" fill="#ffffff" stroke="#ea580c" stroke-width="2"/>
+  <text x="622.0" y="292" font-size="12" font-weight="bold" fill="#ea580c" text-anchor="middle">m=3</text>
+  <text x="20" y="340" font-size="12" fill="#6b7280" text-anchor="start">同じ m の組（例: m=1 の x_2 と x_3）を比べると、奇数番目 x_{2m+1} は</text>
+  <text x="20" y="358" font-size="12" fill="#6b7280" text-anchor="start">偶数番目 x_{2m} より元の信号で「1つ後ろ」にある → このずれが回転因子 e^{-2πik/N} として現れる</text>
+</svg>

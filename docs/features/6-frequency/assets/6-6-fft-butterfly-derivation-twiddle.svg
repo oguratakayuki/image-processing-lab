@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2560" height="1760" viewBox="0 0 640 440" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/></marker>
+    <marker id="arrowOrange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#ea580c"/></marker>
+    <marker id="arrowGray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#9ca3af"/></marker>
+  </defs>
+  <rect x="0" y="0" width="640" height="440" fill="#ffffff"/>
+  <text x="20" y="28" font-size="16" font-weight="bold" fill="#111827" text-anchor="start">kをk+N/2に変えると、2種類の因子がどう変わるか（単位円上で確認）</text>
+  <text x="20" y="48" font-size="12" fill="#6b7280" text-anchor="start">どちらも大きさ1の複素数。掛け算は「単位円上の回転」にあたる</text>
+  <text x="20" y="84" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="start">① e^{-2πim}（m は整数）</text>
+  <text x="20" y="102" font-size="12" fill="#111827" text-anchor="start">角度 2πm は円をちょうど m 周 → 必ず 1 に戻る</text>
+  <line x1="25" y1="265" x2="295" y2="265" stroke="#9ca3af" stroke-width="1"/>
+  <line x1="160" y1="130" x2="160" y2="400" stroke="#9ca3af" stroke-width="1"/>
+  <text x="298" y="269" font-size="11" fill="#6b7280" text-anchor="start">Re</text>
+  <text x="164" y="127" font-size="11" fill="#6b7280" text-anchor="start">Im</text>
+  <circle cx="160" cy="265" r="110" fill="none" stroke="#d1d5db" stroke-width="1.5"/>
+  <path d="M 200 265 A 40 40 0 1 1 197.6 251.3" fill="none" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrowBlue)"/>
+  <line x1="160" y1="265" x2="262.0" y2="265.0" stroke="#2563eb" stroke-width="3" marker-end="url(#arrowBlue)"/>
+  <circle cx="270.0" cy="265.0" r="6" fill="#2563eb"/>
+  <text x="270.0" y="289.0" font-size="12" font-weight="bold" fill="#2563eb" text-anchor="middle">m=0,1,2,... すべて 1</text>
+  <text x="20" y="420" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="start">→ 和の中の物差しは k のときと同じ</text>
+  <text x="330" y="84" font-size="14" font-weight="bold" fill="#ea580c" text-anchor="start">② 回転因子（例: N=8, k=1 → k+N/2=5）</text>
+  <text x="330" y="102" font-size="12" fill="#111827" text-anchor="start">角度が π（180°）増える → 原点を挟んだ反対側</text>
+  <line x1="335" y1="265" x2="605" y2="265" stroke="#9ca3af" stroke-width="1"/>
+  <line x1="470" y1="130" x2="470" y2="400" stroke="#9ca3af" stroke-width="1"/>
+  <text x="608" y="269" font-size="11" fill="#6b7280" text-anchor="start">Re</text>
+  <text x="474" y="127" font-size="11" fill="#6b7280" text-anchor="start">Im</text>
+  <circle cx="470" cy="265" r="110" fill="none" stroke="#d1d5db" stroke-width="1.5"/>
+  <line x1="470" y1="265" x2="542.1" y2="337.1" stroke="#2563eb" stroke-width="3" marker-end="url(#arrowBlue)"/>
+  <circle cx="547.8" cy="342.8" r="6" fill="#2563eb"/>
+  <text x="547.7817459305202" y="366.78174593052023" font-size="12" font-weight="bold" fill="#2563eb" text-anchor="middle">k=1: +0.7071-0.7071j</text>
+  <line x1="470" y1="265" x2="397.9" y2="192.9" stroke="#ea580c" stroke-width="3" marker-end="url(#arrowOrange)"/>
+  <circle cx="392.2" cy="187.2" r="6" fill="#ea580c"/>
+  <text x="392.21825406947977" y="171.21825406947977" font-size="12" font-weight="bold" fill="#ea580c" text-anchor="middle">k=5: -0.7071+0.7071j</text>
+  <path d="M 495.5 290.5 A 36 36 0 0 1 444.5 239.5" fill="none" stroke="#ea580c" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrowOrange)"/>
+  <text x="418" y="317" font-size="12" font-weight="bold" fill="#ea580c" text-anchor="middle">+π (180°)</text>
+  <text x="330" y="420" font-size="13" font-weight="bold" fill="#ea580c" text-anchor="start">→ 回転因子の符号が反転する（+ が − になる）</text>
+</svg>
