@@ -8,6 +8,7 @@
 FEATURES.md                          # トップページ（全体の索引）
 docs/
 ├── DOCUMENTATION_GUIDE.md           # 本ファイル
+├── exam-coverage.md                 # 検定の出題範囲と学習の進み具合の対応表（学習が進んだら更新する）
 ├── features/                        # 機能ごとの解説（グループ単位）
 │   ├── 1-color/
 │   │   ├── README.md                # グループ概要ページ
